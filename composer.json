@@ -1,6 +1,6 @@
 {
-    "name": "mindef/demo",
-    "description": "Proyecto MVC demo",
+    "name": "cecom/mindef",
+    "description": "App para el Control de Equipos de Comunicacion de la Brigada de Comunicaciones",
     "type": "project",
     "config": {
         "platform-check": false
