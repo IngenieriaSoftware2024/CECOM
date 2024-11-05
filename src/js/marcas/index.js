@@ -280,6 +280,7 @@ modalElement.addEventListener('hidden.bs.modal', () => {
     ModalTitle2.classList.add('d-none');
 });
 
+
 Buscar();
 Formulario.addEventListener('submit', Guardar);
 BtnModificar.addEventListener('click', Modificar)

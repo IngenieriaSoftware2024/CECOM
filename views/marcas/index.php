@@ -60,7 +60,7 @@
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            background: linear-gradient(135deg, #4a90e2, #0052cc); 
+            background-color: #00a1f7; 
             color: #fff; 
             border: none; 
             border-radius: 50px; 

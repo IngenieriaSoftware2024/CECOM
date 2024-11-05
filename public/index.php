@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../includes/app.php';
 
 use Controllers\AccesorioController;
+use Controllers\EquipoController;
 use MVC\Router;
 use Controllers\InicioController;
 use Controllers\MarcaController;
@@ -19,6 +20,12 @@ $router->post('/API/marca/modificar', [MarcaController::class, 'modificarAPI']);
 
 // ACCESORIOS
 $router->get('/accesorios', [AccesorioController::class, 'index']);
+$router->get('/API/accesorios/buscar', [AccesorioController::class, 'buscarAPI']);
+$router->post('/API/accesorios/guardar', [AccesorioController::class, 'guardarAPI']);
+$router->post('/API/accesorios/modificar', [AccesorioController::class, 'modificarAPI']);
+
+// EQUIPOS
+$router->get('/ingreso/equipo"', [EquipoController::class, 'index']);
 
 
 

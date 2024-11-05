@@ -39,6 +39,7 @@
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="/CECOM/marcas"><i class="bi bi-award me-2"></i>Marcas</a></li>
                             <li><a class="dropdown-item" href="/CECOM/accesorios"><i class="bi bi-box-seam me-2"></i>Accesorios</a></li>
+                            <li><a class="dropdown-item" href="/CECOM/ingreso/equipo"><i class="bi bi-clipboard-plus-fill me-2"></i>Registro de Equipo</a></li>
                         </ul>
                     </li>
                 </ul>
