@@ -80,8 +80,7 @@ const datatable = new DataTable('#TablaAccesorios', {
             render: (data, type, row, meta) => meta.row + 1
         },
         { title: 'Nombre', data: 'acc_nombre' },
-        { title: 'Descripcion', data: 'acc_desc' },
-        { title: 'Accesorio para...', data: 'sit_descripcion' },
+        { title: 'Accesorio para...', data: 'car_nombre' },
         {
             title: 'Acciones',
             data: 'acc_id', 
@@ -93,7 +92,6 @@ const datatable = new DataTable('#TablaAccesorios', {
                     <button class='btn btn-warning modificar mx-1' 
                         data-id="${data}" 
                         data-nombre="${row.acc_nombre}" 
-                        data-desc="${row.acc_desc}" 
                         data-tipo="${row.acc_tipo}" 
                         data-bs-toggle="modal" 
                         data-bs-target="#ModalAccesorios">
@@ -182,7 +180,6 @@ const llenarDatos = async (e) => {
 
     document.getElementById('acc_id').value = datos.id
     document.getElementById('acc_nombre').value = datos.nombre;
-    document.getElementById('acc_desc').value = datos.desc;
     document.getElementById('acc_tipo').value = datos.tipo;
 
     BtnCrear.classList.add('d-none');

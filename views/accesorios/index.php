@@ -36,16 +36,15 @@
                     <input type="text" name="acc_nombre" id="acc_nombre" placeholder="Ingrese aquí el nombre del accesorio" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <label for="acc_desc" class="form-label">Descripcion</label>
-                    <input type="text" name="acc_desc" id="acc_desc" placeholder="Ingrese aquí la descripcion" class="form-control">
-                </div>
-                <div class="mb-3">
                     <label for="acc_tipo" class="form-label">Accesorio para...</label>
                     <select name="acc_tipo" id="acc_tipo" class="form-control">
                         <option value="#">SELECCIONE...</option>
-                        <option value="3">RADIO</option>
-                        <option value="4">ANTENA</option>
-                        <option value="5">REPETIDORA</option>
+                        <option value="6">RADIO AÉREO(TIERRA/AIRE)</option>
+                        <option value="5">RADIO MOVIL</option>
+                        <option value="4">RADIO PORTATIL</option>
+                        <option value="3">RADIO BASE(ESTACION FIJA)</option>
+                        <option value="2">REPETIDORA</option>
+                        <option value="1">ANTENA</option>
                     </select>
                 </div>
             </form>

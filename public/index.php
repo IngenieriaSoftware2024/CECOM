@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../includes/app.php';
 
 use Controllers\AccesorioController;
+use Controllers\AsignacionEquipoController;
 use Controllers\EquipoController;
 use MVC\Router;
 use Controllers\InicioController;
@@ -25,7 +26,18 @@ $router->post('/API/accesorios/guardar', [AccesorioController::class, 'guardarAP
 $router->post('/API/accesorios/modificar', [AccesorioController::class, 'modificarAPI']);
 
 // EQUIPOS
-$router->get('/ingreso/equipo"', [EquipoController::class, 'index']);
+$router->get('/equipo', [EquipoController::class, 'index']);
+$router->get('/API/equipo/seleccionado', [EquipoController::class, 'AccesoriosEquipoAPI']);
+$router->get('/API/verficar/serie', [EquipoController::class, 'VerificarSerieAPI']);
+$router->post('/API/equipo/guardar', [EquipoController::class, 'GuardarAPI']);
+
+
+
+// ASIGNACIONEQUIPO
+$router->get('/asignaciones', [AsignacionEquipoController::class, 'index']);
+$router->get('/API/equiposingresados/buscar', [AsignacionEquipoController::class, 'BuscarEquiposAPI']);
+$router->post('/API/fotografia_ofical', [AsignacionEquipoController::class, 'informacionOficialAPI']);
+$router->post('/API/asignacion_dependencia/guardar', [AsignacionEquipoController::class, 'AsignarDependenciaAPI']);
 
 
 

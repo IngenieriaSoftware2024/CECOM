@@ -113,6 +113,7 @@ class ActiveRecord {
         // debuguear($query);
 
         // Resultado de la consulta
+
         $resultado = self::$db->exec($query);
 
         return [
@@ -225,7 +226,7 @@ class ActiveRecord {
         $atributos = [];
         foreach(static::$columnasDB as $columna) {
             $columna = strtolower($columna);
-            if($columna === 'id' || $columna === static::$idTabla) continue;
+            if($columna === 'id') continue;
             $atributos[$columna] = $this->$columna;
         }
         return $atributos;
@@ -247,4 +248,10 @@ class ActiveRecord {
             }
         }
     }
+
+    public static function getDB() {
+        return self::$db;  // Retorna la conexión a la base de datos
+    }
+    
+    
 }

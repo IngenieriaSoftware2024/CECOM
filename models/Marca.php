@@ -4,7 +4,7 @@ namespace Model;
 
 class Marca extends ActiveRecord
 {
-    public static $tabla = 'marca_comunicaciones';
+    public static $tabla = 'cecom_marcas';
     public static $columnasDB = ['mar_descripcion'];
     public static $idTabla = 'mar_id';
 
