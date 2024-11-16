@@ -14,10 +14,13 @@ const icon_chek = document.getElementById('icon-check');
 const icon_error = document.getElementById('icon-error');
 const BtnGuardar = document.getElementById('BtnGuardar');
 const SelectDependencia = document.getElementById('asi_dependencia');
+const BtnLimpiar = document.getElementById('BtnLimpiar');
+const BtnBuscarEquipoBrigada = document.getElementById('BtnBuscarBrigada');
+const BtnBuscarTodas = document.getElementById('BtnBuscarTodas');
 
 BtnGuardar.disabled = true;
 
-const Buscar = async () => {
+const EquiposAlmacen = async () => {
 
     let AlertaCargando = Swal.fire({
         title: 'Cargando',
@@ -312,7 +315,9 @@ const Guardar = async (e) => {
                     text: 'custom-text-class'
                 }
             });
-            Buscar();
+            EquiposAlmacen();
+            LimpiarTodo();
+            
         } else {
             await Swal.fire({
                 title: '¡Error!',
@@ -349,7 +354,83 @@ SelectDependencia.addEventListener('change', () =>{
     InputCatalogo.value = "";
     verificarCondiciones();
 } );
+
+const LimpiarTodo = () =>{
+
+
+    InputCatalogo.value = "";
+    InputCatalogo.disabled = true;
+
+
+    GradoOficial.value = "";
+    NombreOficial.value = "";
+    FotoOficial.innerHTML = `<i class="bi bi-person-fill text-muted" style="font-size: 40px;"></i>`;
+    FotoOficial.style.backgroundColor = '#f0f0f0';
+    PlazaOficial.value = "";
+    InputCatalogo.classList.add('border-danger');
+    icon_chek.style.display = 'none';
+    icon_error.style.display = 'none';
+
+    TextAreaMotivo.value = "";
+    TextAreaMotivo.classList.add('border-danger');
+
+    SelectDependencia.value = "";
+
+
+    const checkboxes = document.querySelectorAll('.fila-seleccionada');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+
+
+    filasSeleccionadas.length = 0;
+
+}
+
+
+const BuscarTodo = async () => {
+
+    let AlertaCargando = Swal.fire({
+        title: 'Cargando',
+        text: 'Por favor espera mientras se cargan los equipos',
+        icon: 'info',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    const url = '/CECOM/API/buscartodos/equipos';
+    const config = {
+        method: 'GET'
+    };
+
+    const respuesta = await fetch(url, config);
+    const datos = await respuesta.json();
+
+
+    const { codigo, mensaje, data } = datos
+
+    if (codigo === 1) {
+
+        datatable.clear().draw();
+
+        if (data) {
+            datatable.rows.add(data).draw();
+        }
+        Swal.close();
+    } else {
+        Swal.close();
+        console.log(mensaje)
+    }
+};
+
+
+BtnBuscarTodas.addEventListener('click', BuscarTodo);
+BtnBuscarEquipoBrigada.addEventListener('click', EquiposAlmacen);
+BtnLimpiar.addEventListener('click', LimpiarTodo);
 TextAreaMotivo.addEventListener('input', TextAreaLleno);
-BtnGuardar.addEventListener('click', Guardar)
-Buscar();
+BtnGuardar.addEventListener('click', Guardar);
+EquiposAlmacen();
+
 

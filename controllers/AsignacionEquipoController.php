@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Exception;
 use Model\AsignacionDependencia;
+use Model\Destacamentos;
 use MVC\Router;
 
 class AsignacionEquipoController
@@ -18,11 +19,22 @@ class AsignacionEquipoController
         ]);
     }
 
-    public static function BuscarEquiposAPI()
+    public static function index2(Router $router)
+    {
+        $dep_llave = $_SESSION['dep_llave'];
+        $destacamentos = Destacamentos::DestacamentosDependencia($dep_llave);
+
+        $router->render('asignaciones/administracion', [
+            'destacamentos' => $destacamentos
+        ]);
+    }
+
+
+    public static function EquiposAlmacenAPI()
     {
         try {
             $dep_llave  = $_SESSION['dep_llave'];
-            $data = AsignacionDependencia::EquiposAsignadosBCE($dep_llave);
+            $data = AsignacionDependencia::EquiposAlmacen($dep_llave);
             http_response_code(200);
             echo json_encode([
                 'codigo' => 1,
@@ -83,8 +95,7 @@ class AsignacionEquipoController
 
                         if ($equipo) {
 
-                            $motivo = strtoupper(utf8_decode(htmlspecialchars(trim($equipos['motivo']))));
-
+                            $motivo = utf8_decode(htmlspecialchars(trim(mb_strtoupper($equipos['motivo'], 'UTF-8'))));
                             $asignacion = new AsignacionDependencia([
                                 'asi_equipo' => $equipos['idEquipo'],
                                 'asi_dependencia' => $equipos['dependencia'],
@@ -140,6 +151,27 @@ class AsignacionEquipoController
             echo json_encode([
                 'codigo' => 0,
                 'mensaje' => 'No se recibieron datos.'
+            ]);
+        }
+    }
+
+    public static function BuscarTodosAPI()
+    {
+        try {
+            
+            $data = AsignacionDependencia::BuscarTodos();
+            http_response_code(200);
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => "Datos encontrados correctamente",
+                'data' => $data
+            ]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al realizar la busqueda',
+                'detalle' => $e->getMessage(),
             ]);
         }
     }

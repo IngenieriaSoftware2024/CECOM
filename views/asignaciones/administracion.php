@@ -85,51 +85,9 @@
         border-color: #0056b3;
     }
 
-
-    .btn-custom {
-        font-size: 15px;
-        padding: 10px 20px;
-        border-radius: 5px;
-        color: white;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
-    }
-
-    .btn-custom:hover {
-        transform: scale(1.05);
-        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
-    }
-
-    .btn-azul {
-        background-color: #007bff;
-    }
-
-    .btn-azul:hover {
-        background-color: #0056b3;
-    }
-
-    .btn-verde {
-        background-color: #28a745;
-    }
-
-    .btn-verde:hover {
-        background-color: #1c7430;
-    }
 </style>
 
 
-<div class="row justify-content-center mb-3">
-    <div class="col-auto">
-        <button type="button" id="BtnBuscarBrigada" class="btn-custom btn-azul">
-            Equipos en el Almacen BCE
-        </button>
-    </div>
-    <div class="col-auto">
-        <button type="button" id="BtnBuscarTodas" class="btn-custom btn-verde">
-            Ver Todos los Equipos a nivel Ejercito
-        </button>
-    </div>
-</div>
 
 <div class="row justify-content-center mt-2">
     <div class="col-lg-8">
@@ -149,8 +107,8 @@
                 <label for="asi_dependencia" class="form-label">Seleccione la Dependencia</label>
                 <select name="asi_dependencia" id="asi_dependencia" class="form-select custom-select w-100 mb-3">
                     <option value="">SELECCIONE...</option>
-                    <?php foreach ($dependencias as $dependencia) : ?>
-                        <option value="<?= $dependencia['dep_llave'] ?>"><?= $dependencia['dep_desc_md'] ?></option>
+                    <?php foreach ($destacamentos as $opciones) : ?>
+                        <option value="<?= $opciones['ubi_id'] ?>"><?= $opciones['ubi_nombre'] ?></option>
                     <?php endforeach ?>
                 </select>
             </div>
@@ -204,4 +162,5 @@
 </div>
 
 
-<script src="build/js/asignaciones/index.js"></script>
+
+<script src="build/js/asignaciones/administracion.js"></script>

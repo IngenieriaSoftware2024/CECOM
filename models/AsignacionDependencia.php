@@ -32,7 +32,7 @@ class AsignacionDependencia extends ActiveRecord
     }
 
 
-    public static function EquiposAsignadosBCE($dep_llave)
+    public static function EquiposAlmacen($dep_llave)
     {
         $sql = "SELECT ASI_ID, EQP_ID, EQP_SERIE AS SERIE, clase.CAR_NOMBRE AS CLASE, gama.CAR_NOMBRE AS GAMA, 
                 MAR_DESCRIPCION AS MARCA, SIT_DESCRIPCION AS SITUACION, DEP_DESC_MD AS DEPENDENCIA FROM CECOM_EQUIPO
@@ -42,7 +42,7 @@ class AsignacionDependencia extends ActiveRecord
                 INNER JOIN CECOM_SITUACIONES ON EQP_SITUACION = SIT_LLAVE
                 INNER JOIN CECOM_ASIG_EQUIPO ON ASI_EQUIPO = EQP_ID
                 INNER JOIN MDEP ON DEP_LLAVE = ASI_DEPENDENCIA
-                WHERE ASI_DEPENDENCIA = '$dep_llave' AND ASI_SITUACION= 1";
+                WHERE ASI_DEPENDENCIA = '$dep_llave' AND ASI_SITUACION= 1 AND ASI_STATUS = 5";
         
         return self::fetchArray($sql);
     }
@@ -79,5 +79,20 @@ class AsignacionDependencia extends ActiveRecord
         $sql = "UPDATE CECOM_ASIG_EQUIPO SET ASI_SITUACION = 0 WHERE ASI_ID = '$asi_id' AND  ASI_EQUIPO = '$asi_equipo' ";
 
         return self::SQL($sql);
+    }
+
+    public static function BuscarTodos()
+    {
+        $sql = "SELECT ASI_ID, EQP_ID, EQP_SERIE AS SERIE, clase.CAR_NOMBRE AS CLASE, gama.CAR_NOMBRE AS GAMA, 
+                MAR_DESCRIPCION AS MARCA, SIT_DESCRIPCION AS SITUACION, DEP_DESC_MD AS DEPENDENCIA FROM CECOM_EQUIPO
+                INNER JOIN CECOM_CARACTERISTICAS AS clase ON clase.CAR_ID = EQP_CLASE
+                INNER JOIN CECOM_CARACTERISTICAS AS gama ON gama.CAR_ID = EQP_GAMA
+                INNER JOIN CECOM_MARCAS ON EQP_MARCA = MAR_ID
+                INNER JOIN CECOM_SITUACIONES ON EQP_SITUACION = SIT_LLAVE
+                INNER JOIN CECOM_ASIG_EQUIPO ON ASI_EQUIPO = EQP_ID
+                INNER JOIN MDEP ON DEP_LLAVE = ASI_DEPENDENCIA
+                WHERE ASI_SITUACION= 1 ORDER BY DEP_DESC_MD";
+        
+        return self::fetchArray($sql);
     }
 }

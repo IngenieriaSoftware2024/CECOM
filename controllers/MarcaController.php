@@ -37,8 +37,8 @@ class MarcaController
     public static function guardarAPI()
     {
         $_POST['mar_id'] = filter_var($_POST['mar_id'], FILTER_SANITIZE_NUMBER_INT);
-        $_POST['mar_descripcion'] = utf8_decode(strtoupper(htmlspecialchars(trim($_POST['mar_descripcion']))));
-
+        $_POST['mar_descripcion'] = utf8_decode(htmlspecialchars(trim(mb_strtoupper($_POST['mar_descripcion'], 'UTF-8'))));
+       
         try {
             $Marca = new Marca($_POST);
             $data = $Marca->crear();
@@ -60,7 +60,7 @@ class MarcaController
     public static function modificarAPI()
     {
         $id = filter_var($_POST['mar_id'], FILTER_SANITIZE_NUMBER_INT);
-        $_POST['mar_descripcion'] = utf8_decode(strtoupper(htmlspecialchars(trim($_POST['mar_descripcion']))));
+        $_POST['mar_descripcion'] = utf8_decode(htmlspecialchars(trim(mb_strtoupper($_POST['mar_descripcion'], 'UTF-8'))));
        
         try {
             $data = Marca::find($id);

@@ -34,18 +34,25 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <i class="bi bi-gear me-2"></i>Mantenimientos
+                            <i class="bi bi-hammer me-2"></i>Mantenimientos
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="/CECOM/marcas"><i class="bi bi-award me-2"></i>Marcas</a></li>
                             <li><a class="dropdown-item" href="/CECOM/accesorios"><i class="bi bi-box-seam me-2"></i>Accesorios</a></li>
                             <li><a class="dropdown-item" href="/CECOM/equipo"><i class="bi bi-clipboard-plus-fill me-2"></i>Registro de Equipo</a></li>
+                            <li><a class="dropdown-item" href="/CECOM/asignaciones"> <i class="bi bi-clipboard-plus me-2"></i>Asignacion de Equipo</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/CECOM/asignaciones">
-                            <i class="bi bi-clipboard-plus me-2"></i>Asignacion de Equipo
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-pc me-2"></i>Administracion
                         </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+
+                            <li><a class="dropdown-item" href="/CECOM/destacamentos"><i class="bi bi-geo-alt-fill me-2"></i>Destacamentos y ubicaciones</a></li>
+                            <li><a class="dropdown-item" href="/CECOM/administracion-equipos"><i class="bi bi-clipboard-data me-2"></i>Administracion de Equipos</a></li>
+
+                        </ul>
                     </li>
                 </ul>
 

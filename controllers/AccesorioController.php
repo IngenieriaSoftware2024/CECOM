@@ -34,8 +34,8 @@ class AccesorioController{
     public static function guardarAPI()
     {
         $_POST['acc_id'] = filter_var($_POST['acc_id'], FILTER_SANITIZE_NUMBER_INT);
-        $_POST['acc_nombre'] = utf8_decode(strtoupper(htmlspecialchars(trim($_POST['acc_nombre']))));
-        $_POST['acc_desc'] = utf8_decode(strtoupper(htmlspecialchars(trim($_POST['acc_desc']))));
+        $_POST['acc_nombre'] = utf8_decode(htmlspecialchars(trim(mb_strtoupper($_POST['acc_nombre'], 'UTF-8'))));
+        $_POST['acc_desc'] = utf8_decode(htmlspecialchars(trim(mb_strtoupper($_POST['acc_desc'], 'UTF-8'))));
         $_POST['acc_tipo'] = filter_var($_POST['acc_tipo'], FILTER_SANITIZE_NUMBER_INT);
 
         try {
@@ -59,8 +59,8 @@ class AccesorioController{
     public static function modificarAPI()
     {
         $id = filter_var($_POST['acc_id'], FILTER_SANITIZE_NUMBER_INT);
-        $_POST['acc_nombre'] = utf8_decode(strtoupper(htmlspecialchars(trim($_POST['acc_nombre']))));
-        $_POST['acc_desc'] = utf8_decode(strtoupper(htmlspecialchars(trim($_POST['acc_desc']))));
+        $_POST['acc_nombre'] = utf8_decode(htmlspecialchars(trim(mb_strtoupper($_POST['acc_nombre'], 'UTF-8'))));
+        $_POST['acc_desc'] = utf8_decode(htmlspecialchars(trim(mb_strtoupper($_POST['acc_desc'], 'UTF-8'))));
         $_POST['acc_tipo'] = filter_var($_POST['acc_tipo'], FILTER_SANITIZE_NUMBER_INT);
        
         try {
@@ -70,7 +70,7 @@ class AccesorioController{
             http_response_code(200);
             echo json_encode([
                 'codigo' => 3,
-                'mensaje' => 'Marca modificada exitosamente',
+                'mensaje' => 'Accesorio modificada exitosamente',
             ]);
         } catch (Exception $e) {
             http_response_code(500);

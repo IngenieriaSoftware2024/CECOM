@@ -9,6 +9,8 @@ module.exports = {
     'js/accesorios/index' : './src/js/accesorios/index.js',
     'js/equipos/index' : './src/js/equipos/index.js',
     'js/asignaciones/index' : './src/js/asignaciones/index.js',
+    'js/asignaciones/administracion' : './src/js/asignaciones/administracion.js',
+    'js/destacamentos/index' : './src/js/destacamentos/index.js',
     
   },
   output: {
@@ -17,7 +19,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-        filename: 'styles.css'
+      filename: '[name].css'
     })
   ],
   module: {

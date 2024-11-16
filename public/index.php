@@ -3,6 +3,7 @@ require_once __DIR__ . '/../includes/app.php';
 
 use Controllers\AccesorioController;
 use Controllers\AsignacionEquipoController;
+use Controllers\DestacamentoController;
 use Controllers\EquipoController;
 use MVC\Router;
 use Controllers\InicioController;
@@ -35,9 +36,18 @@ $router->post('/API/equipo/guardar', [EquipoController::class, 'GuardarAPI']);
 
 // ASIGNACIONEQUIPO
 $router->get('/asignaciones', [AsignacionEquipoController::class, 'index']);
-$router->get('/API/equiposingresados/buscar', [AsignacionEquipoController::class, 'BuscarEquiposAPI']);
+$router->get('/API/equiposingresados/buscar', [AsignacionEquipoController::class, 'EquiposAlmacenAPI']);
 $router->post('/API/fotografia_ofical', [AsignacionEquipoController::class, 'informacionOficialAPI']);
 $router->post('/API/asignacion_dependencia/guardar', [AsignacionEquipoController::class, 'AsignarDependenciaAPI']);
+$router->get('/API/buscartodos/equipos', [AsignacionEquipoController::class, 'BuscarTodosAPI']);
+$router->get('/administracion-equipos', [AsignacionEquipoController::class, 'index2']);
+
+//DESTACAMENTOS
+$router->get('/destacamentos', [DestacamentoController::class, 'index']);
+$router->get('/API/destacamentos/buscar', [DestacamentoController::class, 'BuscarDestacamentoAPI']);
+$router->post('/API/destacamentos/guardar', [DestacamentoController::class, 'GuardarDestacamentoAPI']);
+$router->post('/API/destacamentos/modificar', [DestacamentoController::class, 'ModificarDestacamentoAPI']);
+$router->post('/API/destacamento/eliminar', [DestacamentoController::class, 'EliminarDestacamentoAPI']);
 
 
 
