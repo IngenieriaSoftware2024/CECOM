@@ -117,8 +117,8 @@ const filasSeleccionadas = [];
 const alternarSeleccion = checkbox => {
     const eqp_id = checkbox.getAttribute('data-idEquipo');
     const asi_id = checkbox.getAttribute('data-asiID');
-    
-    const equipo = { eqp_id, asi_id }; 
+
+    const equipo = { eqp_id, asi_id };
 
     if (checkbox.checked) {
         if (!filasSeleccionadas.some(e => e.eqp_id === eqp_id && e.asi_id === asi_id)) {
@@ -220,33 +220,10 @@ const verificarCondiciones = () => {
     const plazaLlenada = PlazaOficial.value.trim() !== "";
     const motivoCambioLlenado = TextAreaMotivo.value.length > 9;
 
-    if (dependenciaSeleccionada) {
 
-        InputCatalogo.disabled = false
-        
-
-        if (catalogoValido && equiposSeleccionados && dependenciaSeleccionada && plazaLlenada && motivoCambioLlenado) {
-
-            BtnGuardar.disabled = false;
-
-        } else {
-
-            BtnGuardar.disabled = true;
-        }
-
-    } else {
-        GradoOficial.value = "";
-        NombreOficial.value = "";
-        FotoOficial.innerHTML = `<i class="bi bi-person-fill text-muted" style="font-size: 40px;"></i>`;
-        FotoOficial.style.backgroundColor = '#f0f0f0';
-        PlazaOficial.value = "";
-        InputCatalogo.classList.add('border-danger')
-        icon_chek.style.display = 'none';
-        icon_error.style.display = 'none';
-        InputCatalogo.value = "";
-        InputCatalogo.disabled = true
-    }
-
+    BtnGuardar.disabled = !(catalogoValido && equiposSeleccionados && 
+                           dependenciaSeleccionada && plazaLlenada && 
+                           motivoCambioLlenado);
 };
 
 
@@ -281,7 +258,7 @@ const Guardar = async (e) => {
         for (const equipo of filasSeleccionadas) {
             equiposData.push({
                 idEquipo: equipo.eqp_id,
-                asi_id: equipo.asi_id, 
+                asi_id: equipo.asi_id,
                 dependencia: dependencia,
                 plaza: plaza,
                 motivo: motivo
@@ -317,7 +294,7 @@ const Guardar = async (e) => {
             });
             EquiposAlmacen();
             LimpiarTodo();
-            
+
         } else {
             await Swal.fire({
                 title: '¡Error!',
@@ -341,21 +318,81 @@ const Guardar = async (e) => {
     }
 };
 
-SelectDependencia.addEventListener('change', () =>{
+const manejarOpcionBaja = async () => {
+    const confirmacion = await Swal.fire({
+        title: '¿Está seguro que desea dar de BAJA a este equipo, Recuerde que sus datos quedarán registrados?',
+        text: "Esta acción es irreversible.",
+        icon: 'warning',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: '¡Sí, Estoy Seguro!',
+        denyButtonText: 'No, cancelar',
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        background: '#fff3e0',
+        customClass: {
+            title: 'custom-title-class',
+            text: 'custom-text-class',
+            confirmButton: 'custom-confirm-button',
+            denyButton: 'custom-deny-button'
+        }
+    });
 
+    if (!confirmacion.isConfirmed) {
+        SelectDependencia.value = ""; 
+        return false;
+    }
+
+    try {
+        const respuesta = await fetch('/CECOM/API/datosusuario/buscar', { method: 'GET' });
+        const datos = await respuesta.json();
+
+        if (datos.length > 0) {
+            icon_chek.style.display = 'inline';
+            icon_error.style.display = 'none';
+            GradoOficial.value = datos[0].grado_arma;
+            NombreOficial.value = datos[0].nombre_completo;
+            InputCatalogo.value = datos[0].per_catalogo;
+            InputCatalogo.disabled = true;
+            FotoOficial.innerHTML = `<img src="https://sistema.ipm.org.gt/sistema/fotos_afiliados/ACTJUB/${datos[0].per_catalogo}.jpg" class="rounded-circle shadow" style="width: 125px; height: 125px;">`;
+            FotoOficial.style.backgroundColor = '';
+            PlazaOficial.value = datos[0].per_plaza;
+            InputCatalogo.classList.remove('border-danger');
+            return true;
+        }
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+};
+
+SelectDependencia.addEventListener('change', async () => {
+    if (SelectDependencia.value === 'BAJA') {
+        const bajaExitosa = await manejarOpcionBaja();
+        if (!bajaExitosa) {
+            limpiarFormulario();
+        }
+    } else {
+
+        limpiarFormulario();
+        InputCatalogo.disabled = false; 
+    }
+    verificarCondiciones();
+});
+
+const limpiarFormulario = () => {
     GradoOficial.value = "";
     NombreOficial.value = "";
     FotoOficial.innerHTML = `<i class="bi bi-person-fill text-muted" style="font-size: 40px;"></i>`;
     FotoOficial.style.backgroundColor = '#f0f0f0';
     PlazaOficial.value = "";
-    InputCatalogo.classList.add('border-danger')
+    InputCatalogo.classList.add('border-danger');
     icon_chek.style.display = 'none';
     icon_error.style.display = 'none';
     InputCatalogo.value = "";
-    verificarCondiciones();
-} );
+};
 
-const LimpiarTodo = () =>{
+const LimpiarTodo = () => {
 
 
     InputCatalogo.value = "";

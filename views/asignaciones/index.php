@@ -152,6 +152,9 @@
                     <?php foreach ($dependencias as $dependencia) : ?>
                         <option value="<?= $dependencia['dep_llave'] ?>"><?= $dependencia['dep_desc_md'] ?></option>
                     <?php endforeach ?>
+                    <option value="BAJA" style="font-weight: bold; color: red; background-color: yellow;">
+                        DAR BAJA A EQUIPO
+                    </option>
                 </select>
             </div>
         </div>
@@ -162,8 +165,7 @@
                     Catálogo del Oficial a quien se le cargará el equipo
                 </label>
                 <div class="col-lg-5 position-relative">
-                    <input type="
-                        <input type=" text" class="form-control border border-danger" name="catalogo_oficial" id="catalogo_oficial" disabled placeholder="Ingrese el catálogo ">
+                    <input type=" text" class="form-control border border-danger" name="catalogo_oficial" id="catalogo_oficial" disabled placeholder="Ingrese el catálogo ">
 
                     <span id="icon-check" class="position-absolute top-50 end-0 translate-middle-y me-3" style="display: none;">
                         <i class="bi bi-check-circle-fill text-success fs-4"></i>
@@ -180,9 +182,9 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" class="form-control mb-3" id="Grado_Oficial" placeholder="Grado del Oficial" readonly>
-                    <input type="text" class="form-control mb-3" id="Nombre_Oficial" placeholder="Nombre del Oficial" readonly>
-                    <input type="hidden" class="form-control" id="Plaza_Oficial" placeholder="Plaza del Oficial" readonly>
+                    <input type="text" class="form-control mb-3" id="Grado_Oficial" placeholder="Grado del Oficial" disabled>
+                    <input type="text" class="form-control mb-3" id="Nombre_Oficial" placeholder="Nombre del Oficial" disabled>
+                    <input type="hidden" class="form-control" id="Plaza_Oficial" placeholder="Plaza del Oficial" disabled>
                     <textarea id="MotivoCambio" class="form-control mb-3 border-danger" placeholder="Indique el motivo del cambio" rows="4"></textarea>
                 </div>
             </div>
@@ -192,7 +194,7 @@
             <div class="card-body d-flex justify-content-center">
                 <div class="row w-100">
                     <div class="col-12 mb-2">
-                        <button type="submit" id="BtnGuardar" class="btn btn-warning w-100">ASIGNAR A DEPENDENCIA</button>
+                        <button type="submit" id="BtnGuardar" class="btn btn-warning w-100">ASIGNAR </button>
                     </div>
                     <div class="col-12">
                         <button type="button" id="BtnLimpiar" class="btn btn-success w-100 shadow border-0">LIMPIAR</button>

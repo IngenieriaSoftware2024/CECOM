@@ -41,6 +41,12 @@ $router->post('/API/fotografia_ofical', [AsignacionEquipoController::class, 'inf
 $router->post('/API/asignacion_dependencia/guardar', [AsignacionEquipoController::class, 'AsignarDependenciaAPI']);
 $router->get('/API/buscartodos/equipos', [AsignacionEquipoController::class, 'BuscarTodosAPI']);
 $router->get('/administracion-equipos', [AsignacionEquipoController::class, 'index2']);
+$router->get('/API/mostrarequipos/buscar', [AsignacionEquipoController::class, 'EquiposDependenciaAPI']);
+$router->get('/API/mostrarequipos/buscar', [AsignacionEquipoController::class, 'EquiposDependenciaAPI']);
+$router->get('/API/datosusuario/buscar', [AsignacionEquipoController::class, 'DatosUsuarioAPI']);
+$router->post('/API/asignacion_destino/guardar', [AsignacionEquipoController::class, 'AsignarDestinoAPI']);
+
+
 
 //DESTACAMENTOS
 $router->get('/destacamentos', [DestacamentoController::class, 'index']);

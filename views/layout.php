@@ -19,19 +19,22 @@
                 <span class="fw-bold">CECOM</span>
             </a>
 
-            <!-- Botón de colapso para móviles -->
+   
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Enlaces de navegación -->
+
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/CECOM/">
                             <i class="bi bi-house-fill me-2"></i>Inicio
                         </a>
                     </li>
+
+     
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-hammer me-2"></i>Mantenimientos
@@ -40,29 +43,37 @@
                             <li><a class="dropdown-item" href="/CECOM/marcas"><i class="bi bi-award me-2"></i>Marcas</a></li>
                             <li><a class="dropdown-item" href="/CECOM/accesorios"><i class="bi bi-box-seam me-2"></i>Accesorios</a></li>
                             <li><a class="dropdown-item" href="/CECOM/equipo"><i class="bi bi-clipboard-plus-fill me-2"></i>Registro de Equipo</a></li>
-                            <li><a class="dropdown-item" href="/CECOM/asignaciones"> <i class="bi bi-clipboard-plus me-2"></i>Asignacion de Equipo</a></li>
+                            <li><a class="dropdown-item" href="/CECOM/asignaciones"><i class="bi bi-clipboard-plus me-2"></i>Asignación de Equipo</a></li>
                         </ul>
                     </li>
+
+   
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <i class="bi bi-pc me-2"></i>Administracion
+                            <i class="bi bi-pc me-2"></i>Administración
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-
                             <li><a class="dropdown-item" href="/CECOM/destacamentos"><i class="bi bi-geo-alt-fill me-2"></i>Destacamentos y ubicaciones</a></li>
-                            <li><a class="dropdown-item" href="/CECOM/administracion-equipos"><i class="bi bi-clipboard-data me-2"></i>Administracion de Equipos</a></li>
-
+                            <li><a class="dropdown-item" href="/CECOM/administracion-equipos"><i class="bi bi-clipboard-data me-2"></i>Administración de Equipos</a></li>
                         </ul>
+                    </li>
+
+        
+                    <li class="nav-item">
+                        <a class="nav-link" href="/CECOM/mapa/general">
+                            <i class="bi bi-crosshair2 me-2"></i>Mapa General
+                        </a>
                     </li>
                 </ul>
 
-                <!-- Botón Menú -->
+       
                 <div class="d-flex align-items-center">
                     <a href="/menu/" class="btn btn-danger d-flex align-items-center">
                         <i class="bi bi-arrow-bar-left me-1"></i> MENÚ
                     </a>
                 </div>
             </div>
+
         </div>
     </nav>
 

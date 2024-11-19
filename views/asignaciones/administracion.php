@@ -84,7 +84,6 @@
     .form-select.custom-select:hover {
         border-color: #0056b3;
     }
-
 </style>
 
 
@@ -93,7 +92,8 @@
     <div class="col-lg-8">
         <div class="card custom-card shadow-lg border-0 rounded-4">
             <div class="card-body">
-                <h3 class="text-center mb-4">Seleccione los equipos que desea asignar</h3>
+                <h3 class="text-center mb-2">Aministracion de Equipos de:</h3>
+                <h3 class="text-center mb-4"> <b><?php echo $dependencia['dependencia']; ?></b></h3>
                 <div class="table-responsive p-2">
                     <table class="table table-striped table-hover table-bordered w-100" id="EquiposRegistrados">
                     </table>
@@ -104,12 +104,15 @@
     <div class="col-lg-4 ">
         <div class="card custom-card shadow-lg border-0 rounded-4">
             <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                <label for="asi_dependencia" class="form-label">Seleccione la Dependencia</label>
+                <label for="asi_dependencia" class="form-label">Seleccione el Destino</label>
                 <select name="asi_dependencia" id="asi_dependencia" class="form-select custom-select w-100 mb-3">
                     <option value="">SELECCIONE...</option>
                     <?php foreach ($destacamentos as $opciones) : ?>
                         <option value="<?= $opciones['ubi_id'] ?>"><?= $opciones['ubi_nombre'] ?></option>
                     <?php endforeach ?>
+                    <option value="mantenimiento" style="font-weight: bold; color: red; background-color: yellow;">
+                        ENVIAR A MANTENIMIENTO A BRIGADA DE COMUNICACIONES
+                    </option>
                 </select>
             </div>
         </div>
@@ -117,11 +120,10 @@
         <div class="card custom-card shadow-lg border-0 rounded-4 mt-1 p-2">
             <div class="row justify-content-center mb-3">
                 <label for="catalogo_oficial" class="form-label text-center fw-bold">
-                    Catálogo del Oficial a quien se le cargará el equipo
+                    Catálogo del responsable a quien se le cargará el equipo
                 </label>
                 <div class="col-lg-5 position-relative">
-                    <input type="
-                        <input type=" text" class="form-control border border-danger" name="catalogo_oficial" id="catalogo_oficial" disabled placeholder="Ingrese el catálogo ">
+                        <input type=" text" class="form-control border border-danger" name="catalogo_oficial" id="catalogo_oficial"  placeholder="Ingrese el catálogo ">
 
                     <span id="icon-check" class="position-absolute top-50 end-0 translate-middle-y me-3" style="display: none;">
                         <i class="bi bi-check-circle-fill text-success fs-4"></i>
@@ -138,9 +140,9 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <input type="text" class="form-control mb-3" id="Grado_Oficial" placeholder="Grado del Oficial" readonly>
-                    <input type="text" class="form-control mb-3" id="Nombre_Oficial" placeholder="Nombre del Oficial" readonly>
-                    <input type="hidden" class="form-control" id="Plaza_Oficial" placeholder="Plaza del Oficial" readonly>
+                    <input type="text" class="form-control mb-3" id="Grado_Oficial" placeholder="Grado del responsable" disabled>
+                    <input type="text" class="form-control mb-3" id="Nombre_Oficial" placeholder="Nombre del responsable" disabled>
+                    <input type="hidden" class="form-control" id="Plaza_Oficial"  >
                     <textarea id="MotivoCambio" class="form-control mb-3 border-danger" placeholder="Indique el motivo del cambio" rows="4"></textarea>
                 </div>
             </div>
@@ -150,7 +152,7 @@
             <div class="card-body d-flex justify-content-center">
                 <div class="row w-100">
                     <div class="col-12 mb-2">
-                        <button type="submit" id="BtnGuardar" class="btn btn-warning w-100">ASIGNAR A DEPENDENCIA</button>
+                        <button type="submit" id="BtnGuardar" class="btn btn-warning w-100">ASIGNAR</button>
                     </div>
                     <div class="col-12">
                         <button type="button" id="BtnLimpiar" class="btn btn-success w-100 shadow border-0">LIMPIAR</button>

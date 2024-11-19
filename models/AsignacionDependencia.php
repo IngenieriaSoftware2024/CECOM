@@ -64,7 +64,7 @@ class AsignacionDependencia extends ActiveRecord
     public static function InformacionOficial($catalogo, $dependencia)
     {
         $sql  =  "SELECT TRIM(GRA_DESC_LG)||' DE '|| TRIM(ARM_DESC_LG) AS GRADO_ARMA, TRIM(PER_APE1)||' '||TRIM(PER_APE2)||' '||TRIM(PER_NOM1)||' '||TRIM(PER_NOM2) 
-                    AS NOMBRE_COMPLETO, PER_PLAZA
+                    AS NOMBRE_COMPLETO, PER_PLAZA, PER_CATALOGO
                     FROM MPER 
                     INNER JOIN ARMAS ON ARM_CODIGO = PER_ARMA
                     INNER JOIN GRADOS ON GRA_CODIGO = PER_GRADO
@@ -94,5 +94,34 @@ class AsignacionDependencia extends ActiveRecord
                 WHERE ASI_SITUACION= 1 ORDER BY DEP_DESC_MD";
         
         return self::fetchArray($sql);
+    }
+
+    public static function EquiposDependencias($dep_llave)
+    {
+        $sql = "SELECT ASI_ID, EQP_ID, EQP_SERIE AS SERIE, clase.CAR_NOMBRE AS CLASE, gama.CAR_NOMBRE AS GAMA, MAR_DESCRIPCION AS MARCA, 
+                situacion_status.SIT_DESCRIPCION AS ESTATUS, TRIM(gra_desc_lg)||' DE '||TRIM(arm_desc_lg)||' '||
+                TRIM(per_nom1)|| ' ' ||TRIM(per_nom2)|| ' ' ||TRIM(per_ape1)|| ' ' ||TRIM(per_ape2)AS RESPONSABLE FROM CECOM_EQUIPO
+                INNER JOIN CECOM_CARACTERISTICAS AS clase ON clase.CAR_ID = EQP_CLASE
+                INNER JOIN CECOM_CARACTERISTICAS AS gama ON gama.CAR_ID = EQP_GAMA
+                INNER JOIN CECOM_MARCAS ON EQP_MARCA = MAR_ID
+                INNER JOIN CECOM_ASIG_EQUIPO ON ASI_EQUIPO = EQP_ID
+                INNER JOIN CECOM_SITUACIONES AS situacion_status ON CECOM_ASIG_EQUIPO.ASI_STATUS = situacion_status.SIT_LLAVE
+                INNER JOIN MPER ON PER_PLAZA = ASI_RESPONSABLE
+                INNER JOIN grados ON gra_codigo = per_grado
+                INNER JOIN armas ON arm_codigo = per_arma
+                WHERE ASI_DEPENDENCIA = '$dep_llave' AND ASI_SITUACION = 1";
+
+        return self::fetchArray($sql);
+    }
+
+    public static function ResponsableEnviarMantenimiento($catalogo){
+
+        $sql = "SELECT TRIM(GRA_DESC_LG)||' DE '|| TRIM(ARM_DESC_LG) AS GRADO_ARMA, TRIM(PER_APE1)||' '||
+                TRIM(PER_APE2)||' '||TRIM(PER_NOM1)||' '||TRIM(PER_NOM2)  AS NOMBRE_COMPLETO FROM MPER  
+                INNER JOIN ARMAS ON ARM_CODIGO = PER_ARMA 
+                INNER JOIN GRADOS ON GRA_CODIGO = PER_GRADO 
+                WHERE PER_CATALOGO = '$catalogo'";
+
+        return self::fetchFirst($sql);
     }
 }
