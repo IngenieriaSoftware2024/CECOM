@@ -206,4 +206,4 @@
 </div>
 
 
-<script src="build/js/asignaciones/index.js"></script>
+<script src="<?= asset('build/js/asignaciones/index.js')?>"></script>

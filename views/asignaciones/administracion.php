@@ -165,4 +165,4 @@
 
 
 
-<script src="build/js/asignaciones/administracion.js"></script>
+<script src="<?= asset('build/js/asignaciones/administracion.js')?>"></script>

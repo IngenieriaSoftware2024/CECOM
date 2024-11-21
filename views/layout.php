@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="build/js/app.js"></script>
+    <script src="<?= asset('build/js/app.js') ?>"></script>
+    <!-- cambio de linea por no devolver ruta correcta  -->
     <link rel="shortcut icon" href="<?= asset('images/BCE.png') ?>" type="image/x-icon">
     <link rel="stylesheet" href="<?= asset('build/styles.css') ?>">
     <title>CECOM</title>
@@ -19,7 +20,7 @@
                 <span class="fw-bold">CECOM</span>
             </a>
 
-   
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -34,7 +35,7 @@
                         </a>
                     </li>
 
-     
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-hammer me-2"></i>Mantenimientos
@@ -44,10 +45,12 @@
                             <li><a class="dropdown-item" href="/CECOM/accesorios"><i class="bi bi-box-seam me-2"></i>Accesorios</a></li>
                             <li><a class="dropdown-item" href="/CECOM/equipo"><i class="bi bi-clipboard-plus-fill me-2"></i>Registro de Equipo</a></li>
                             <li><a class="dropdown-item" href="/CECOM/asignaciones"><i class="bi bi-clipboard-plus me-2"></i>Asignación de Equipo</a></li>
+                            <li><a class="dropdown-item" href="/CECOM/mantenimiento"><i class="bi bi-hammer me-2"></i>Equipos Enviados a Mantenimiento</a></li>
+                        
                         </ul>
                     </li>
 
-   
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-pc me-2"></i>Administración
@@ -58,15 +61,15 @@
                         </ul>
                     </li>
 
-        
+
                     <li class="nav-item">
-                        <a class="nav-link" href="/CECOM/mapa/general">
+                        <a class="nav-link" href="/CECOM/mapa/index">
                             <i class="bi bi-crosshair2 me-2"></i>Mapa General
                         </a>
                     </li>
                 </ul>
 
-       
+
                 <div class="d-flex align-items-center">
                     <a href="/menu/" class="btn btn-danger d-flex align-items-center">
                         <i class="bi bi-arrow-bar-left me-1"></i> MENÚ

@@ -86,4 +86,4 @@
 </div>
 
 
-<script src="build/js/marcas/index.js"></script>
+<script src="<?= asset('build/js/marcas/index.js')?>"></script>

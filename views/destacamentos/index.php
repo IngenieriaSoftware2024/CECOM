@@ -105,4 +105,4 @@
     </div>
 </div>
 
-<script src="build/js/destacamentos/index.js"></script>
+<script src="<?= asset('build/js/destacamentos/index.js')?>"></script>

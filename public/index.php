@@ -1,18 +1,20 @@
-<?php 
+<?php
 require_once __DIR__ . '/../includes/app.php';
 
 use Controllers\AccesorioController;
 use Controllers\AsignacionEquipoController;
 use Controllers\DestacamentoController;
 use Controllers\EquipoController;
+use Controllers\MantenimientoController;
 use MVC\Router;
 use Controllers\InicioController;
+use Controllers\MapaController;
 use Controllers\MarcaController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
 
-$router->get('/', [InicioController::class,'index']);
+$router->get('/', [InicioController::class, 'index']);
 
 // MARCAS
 $router->get('/marcas', [MarcaController::class, 'index']);
@@ -55,6 +57,16 @@ $router->post('/API/destacamentos/guardar', [DestacamentoController::class, 'Gua
 $router->post('/API/destacamentos/modificar', [DestacamentoController::class, 'ModificarDestacamentoAPI']);
 $router->post('/API/destacamento/eliminar', [DestacamentoController::class, 'EliminarDestacamentoAPI']);
 
+
+// MAPA
+$router->get('/mapa/index', [MapaController::class, 'index']);
+$router->get('/API/destacamentos/mostrar-todos', [MapaController::class, 'DestacamentoActivosAPI']);
+$router->get('/API/equipos/destacamento', [MapaController::class, 'EquiposPorDestacamentoAPI']);
+$router->get('/API/seleccion/tipo', [MapaController::class, 'EquipoTipoAPI']);
+
+// MANTENIMINETO
+$router->get('/mantenimiento', [MantenimientoController::class, 'index']);
+$router->get('/API/mantenimientos/buscar', [MantenimientoController::class, 'buscarAPI']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

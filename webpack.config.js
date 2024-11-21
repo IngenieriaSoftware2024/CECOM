@@ -11,7 +11,10 @@ module.exports = {
     'js/asignaciones/index' : './src/js/asignaciones/index.js',
     'js/asignaciones/administracion' : './src/js/asignaciones/administracion.js',
     'js/destacamentos/index' : './src/js/destacamentos/index.js',
-    
+    'js/mapa/index' : './src/js/mapa/index.js',
+    'js/mantenimiento/index' : './src/js/mantenimiento/index.js',
+
+
   },
   output: {
     filename: '[name].js',

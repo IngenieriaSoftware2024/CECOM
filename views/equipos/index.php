@@ -7,6 +7,8 @@
                 <label for="eqp_clase" class="form-label">CLASE DE EQUIPO</label>
                 <select name="eqp_clase" id="eqp_clase" class="form-control">
                     <option value="">SELECCIONE...</option>
+                    <option value="13">ROCKET (ENLACES)</option>
+                    <option value="12">RADIO SATELITAL</option>
                     <option value="6">RADIO AÉREO(TIERRA/AIRE)</option>
                     <option value="5">RADIO MOVIL</option>
                     <option value="4">RADIO PORTATIL</option>
@@ -81,4 +83,4 @@
 
 
 
-<script src="build/js/equipos/index.js"></script>
+<script src="<?= asset('build/js/equipos/index.js')?>"></script>

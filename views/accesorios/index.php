@@ -39,6 +39,8 @@
                     <label for="acc_tipo" class="form-label">Accesorio para...</label>
                     <select name="acc_tipo" id="acc_tipo" class="form-control">
                         <option value="#">SELECCIONE...</option>
+                        <option value="13">ROCKET (ENLACES)</option>
+                        <option value="12">RADIO SATELITAL</option>
                         <option value="6">RADIO AÉREO(TIERRA/AIRE)</option>
                         <option value="5">RADIO MOVIL</option>
                         <option value="4">RADIO PORTATIL</option>
@@ -100,4 +102,4 @@
     </button>
 </div>
 
-<script src="build/js/accesorios/index.js"></script>
+<script src="<?= asset('build/js/accesorios/index.js')?>"></script>

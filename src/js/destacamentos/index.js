@@ -98,20 +98,19 @@ const cargarDestacamentos = async () => {
                 data.forEach(destacamento => {
                     const { ubi_nombre, ubi_latitud, ubi_longitud } = destacamento;
 
-                    // Crear el marcador
                     const marcador = L.marker([ubi_latitud, ubi_longitud], { icon: iconoDestacamento }).addTo(mapa);
 
-                    // Agregar el popup
-                    marcador.bindPopup(`<b>${ubi_nombre}</b>`, {
-                        closeButton: true,  // Mostrar botón de cierre
-                        autoClose: false,   // No cerrar automáticamente al hacer clic en otro lugar
-                        closeOnEscapeKey: true, // Cerrar con la tecla Escape
-                        className: 'custom-label'
+    
+                    marcador.bindTooltip(`<b>${ubi_nombre}</b>`, {
+                        permanent: false, 
+                        direction: 'top',  
+                        className: 'custom-tooltip' 
                     });
-                    
-                    // Abrir el popup al cargar
-                    marcador.openPopup();
+
+    
+      
                 });
+
                 datatable.rows.add(data).draw();
             }
             Swal.close();
@@ -122,6 +121,7 @@ const cargarDestacamentos = async () => {
         console.error('Error al cargar los destacamentos:', error);
     }
 };
+
 
 const datatable = new DataTable('#DestacamentosIngresados', {
     dom: `

@@ -42,7 +42,7 @@ class Router
         } else {
             // debuguear($_SERVER);
             if( empty($_SERVER['HTTP_X_REQUESTED_WITH'])){
-                $this->render('pages/notfound');
+                $this->render('inicio/notfound');
             
             }else{
                 getHeadersApi();
