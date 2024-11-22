@@ -85,7 +85,9 @@ $router->post('/API/accesorios/eliminar', [AsignacionEquipoController::class, 'E
 
 // GENERACION DE REPORTES
 $router->get('/reportes', [ReportesController::class, 'index']);
+$router->post('/API/reportes/buscar', [ReportesController::class, 'BuscarCondiciones']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
+    

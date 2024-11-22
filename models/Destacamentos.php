@@ -69,21 +69,28 @@ class Destacamentos extends ActiveRecord
     }
 
     public static function ObtenerUbicacionTipoEquipo($ids)
-    {   
+    {
         if (!is_array($ids)) {
-            $ids = [$ids]; 
+            $ids = [$ids];
         }
-    
+
         $listadoIds = implode(',', $ids);
-    
+
 
         $sql = "SELECT UBI_LATITUD, UBI_LONGITUD, COUNT(ASI_EQUIPO) AS cantidad_equipos FROM CECOM_ASIG_EQUIPO
                 INNER JOIN CECOM_DEST_BRGS ON UBI_ID = ASI_DESTACAMENTO
                 INNER JOIN CECOM_EQUIPO ON EQP_ID = ASI_EQUIPO
                 WHERE EQP_CLASE IN ($listadoIds) AND ASI_SITUACION = 1
                 GROUP BY UBI_LATITUD, UBI_LONGITUD";
-    
-    
+
+
+        return self::fetchArray($sql);
+    }
+
+    public static function TodosDestacamentosActivos()
+    {
+        $sql = "SELECT UBI_ID, UBI_NOMBRE FROM CECOM_DEST_BRGS WHERE UBI_SITUACION = 1";
+
         return self::fetchArray($sql);
     }
 }
