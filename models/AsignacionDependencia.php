@@ -100,13 +100,14 @@ class AsignacionDependencia extends ActiveRecord
     {
         $sql = "SELECT ASI_ID, EQP_ID, EQP_SERIE AS SERIE, clase.CAR_NOMBRE AS CLASE, gama.CAR_NOMBRE AS GAMA, MAR_DESCRIPCION AS MARCA, 
                 situacion_status.SIT_DESCRIPCION AS ESTATUS, TRIM(gra_desc_lg)||' DE '||TRIM(arm_desc_lg)||' '||
-                TRIM(per_nom1)|| ' ' ||TRIM(per_nom2)|| ' ' ||TRIM(per_ape1)|| ' ' ||TRIM(per_ape2)AS RESPONSABLE FROM CECOM_EQUIPO
+                TRIM(per_nom1)|| ' ' ||TRIM(per_nom2)|| ' ' ||TRIM(per_ape1)|| ' ' ||TRIM(per_ape2)AS RESPONSABLE, UBI_NOMBRE FROM CECOM_EQUIPO
                 INNER JOIN CECOM_CARACTERISTICAS AS clase ON clase.CAR_ID = EQP_CLASE
                 INNER JOIN CECOM_CARACTERISTICAS AS gama ON gama.CAR_ID = EQP_GAMA
                 INNER JOIN CECOM_MARCAS ON EQP_MARCA = MAR_ID
                 INNER JOIN CECOM_ASIG_EQUIPO ON ASI_EQUIPO = EQP_ID
                 INNER JOIN CECOM_SITUACIONES AS situacion_status ON CECOM_ASIG_EQUIPO.ASI_STATUS = situacion_status.SIT_LLAVE
-                INNER JOIN MPER ON PER_PLAZA = ASI_RESPONSABLE
+                LEFT JOIN MPER ON PER_PLAZA = ASI_RESPONSABLE
+                LEFT JOIN CECOM_DEST_BRGS ON UBI_ID = ASI_DESTACAMENTO
                 INNER JOIN grados ON gra_codigo = per_grado
                 INNER JOIN armas ON arm_codigo = per_arma
                 WHERE ASI_DEPENDENCIA = '$dep_llave' AND ASI_SITUACION = 1";

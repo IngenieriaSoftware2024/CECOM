@@ -95,7 +95,8 @@ const datatable = new DataTable('#EquiposRegistrados', {
         { title: 'Marca', data: 'marca' },
         { title: 'No. Serie', data: 'serie' },
         { title: 'Responsable', data: 'responsable' },
-        { title: 'Estatus', data: 'estatus' }
+        { title: 'Estatus', data: 'estatus' },
+        { title: 'Ubicado en', data: 'ubi_nombre' }
     ]
 });
 

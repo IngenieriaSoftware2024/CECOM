@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="<?= asset('images/BCE.png') ?>" type="image/x-icon">
     <link rel="stylesheet" href="<?= asset('build/styles.css') ?>">
     <title>CECOM</title>
+
 </head>
 
 <body>

@@ -44,7 +44,6 @@ $router->post('/API/asignacion_dependencia/guardar', [AsignacionEquipoController
 $router->get('/API/buscartodos/equipos', [AsignacionEquipoController::class, 'BuscarTodosAPI']);
 $router->get('/administracion-equipos', [AsignacionEquipoController::class, 'index2']);
 $router->get('/API/mostrarequipos/buscar', [AsignacionEquipoController::class, 'EquiposDependenciaAPI']);
-$router->get('/API/mostrarequipos/buscar', [AsignacionEquipoController::class, 'EquiposDependenciaAPI']);
 $router->get('/API/datosusuario/buscar', [AsignacionEquipoController::class, 'DatosUsuarioAPI']);
 $router->post('/API/asignacion_destino/guardar', [AsignacionEquipoController::class, 'AsignarDestinoAPI']);
 
@@ -67,6 +66,12 @@ $router->get('/API/seleccion/tipo', [MapaController::class, 'EquipoTipoAPI']);
 // MANTENIMINETO
 $router->get('/mantenimiento', [MantenimientoController::class, 'index']);
 $router->get('/API/mantenimientos/buscar', [MantenimientoController::class, 'buscarAPI']);
+$router->get('/API/mantenimientos/BuscarEntrega', [MantenimientoController::class, 'buscarEntregaAPI']);
+$router->post('/API/mantenimiento/guardar', [MantenimientoController::class, 'GuardarAPI']);
+$router->get('/API/mantenimiento/validarcatalogo', [MantenimientoController::class, 'ValidarCatalogoAPI']);
+$router->get('/API/mantenimientos/datosEquipo', [MantenimientoController::class, 'datosEquipoAPI']);
+$router->post('/API/mantenimiento/Entregar', [MantenimientoController::class, 'EntregarAPI']);
+
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

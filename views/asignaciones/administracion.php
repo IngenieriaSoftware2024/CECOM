@@ -95,7 +95,7 @@
                 <h3 class="text-center mb-2">Aministracion de Equipos de:</h3>
                 <h3 class="text-center mb-4"> <b><?php echo $dependencia['dependencia']; ?></b></h3>
                 <div class="table-responsive p-2">
-                    <table class="table table-striped table-hover table-bordered w-100" id="EquiposRegistrados">
+                    <table class="table table-striped table-hover table-bordered w-100 table-sm" id="EquiposRegistrados">
                     </table>
                 </div>
             </div>
