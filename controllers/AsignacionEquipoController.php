@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Exception;
+use Model\AsignacionAccesorio;
 use Model\AsignacionDependencia;
 use Model\Destacamentos;
 use MVC\Router;
@@ -74,118 +75,6 @@ class AsignacionEquipoController
             ]);
         }
     }
-
-
-    // public static function AsignarDependenciaAPI()
-    // {
-
-    //     if (isset($_POST['equipos'])) {
-    //         $Equipos_Registrar = json_decode($_POST['equipos'], true);
-
-    //         try {
-    //             if ($Equipos_Registrar && is_array($Equipos_Registrar)) {
-
-    //                 $conexion = AsignacionDependencia::getDB();
-    //                 $conexion->beginTransaction();
-    //                 $fecha_actual = date("Y-m-d");
-
-    //                 $errores = [];
-
-    //                 foreach ($Equipos_Registrar as $equipos) {
-
-    //                     $asi_id = filter_var($equipos['asi_id'], FILTER_SANITIZE_NUMBER_INT);
-    //                     $eqp_id = filter_var($equipos['idEquipo'], FILTER_SANITIZE_NUMBER_INT);
-
-    //                     $equipo = AsignacionDependencia::cambioSituacionEquipo($asi_id, $eqp_id);
-
-    //                     if ($equipo) {
-
-
-    //                         $dependencia = $equipos['dependencia'];
-
-
-    //                         if ($dependencia === 'BAJA') {
-
-    //                             $dependencia = "";
-
-    //                             $catalogo = $_SESSION['auth_user'];
-    //                             $responsable = AsignacionDependencia::ResponsableEnviarMantenimiento($catalogo);
-
-    //                             $motivo = htmlspecialchars(trim(mb_strtoupper(
-    //                                 mb_convert_encoding(
-    //                                     "Eliminado por: {$responsable['grado_arma']} {$responsable['nombre_completo']}. Motivo: {$equipos['motivo']}",
-    //                                     'UTF-8'
-    //                                 )
-    //                             )));
-
-    //                             $status = 7;
-    //                             $situacion = 0;
-    //                         } else {
-
-    //                             $motivo = htmlspecialchars(trim(mb_strtoupper(mb_convert_encoding($equipos['motivo'], 'UTF-8'))));
-    //                             $status = 4;
-    //                             $situacion = 1;
-    //                         }
-
-
-    //                         $asignacion = new AsignacionDependencia([
-    //                             'asi_equipo' => $equipos['idEquipo'],
-    //                             'asi_dependencia' => $dependencia,
-    //                             'asi_fecha' => $fecha_actual,
-    //                             'asi_responsable' => $equipos['plaza'],
-    //                             'asi_motivo' => $motivo,
-    //                             'asi_status' => $status,
-    //                             'asi_situacion' => $situacion
-    //                         ]);
-
-    //                         $asignar = $asignacion->crear();
-    //                     } else {
-
-    //                         $errores[] = "Equipo con ID {$equipos['idEquipo']} no encontrado.";
-    //                     }
-    //                 }
-
-    //                 if (!empty($errores)) {
-
-    //                     $conexion->rollBack();
-    //                     echo json_encode([
-    //                         'codigo' => 0,
-    //                         'mensaje' => 'Errores al cambiar la situación de algunos equipos',
-    //                         'detalle' => $errores
-    //                     ]);
-    //                     return;
-    //                 }
-
-
-    //                 $conexion->commit();
-
-    //                 echo json_encode([
-    //                     'codigo' => 1,
-    //                     'mensaje' => 'Éxito al asignar nuevos equipos'
-    //                 ]);
-    //             } else {
-    //                 echo json_encode([
-    //                     'codigo' => 0,
-    //                     'mensaje' => 'No se recibieron datos válidos.'
-    //                 ]);
-    //             }
-    //         } catch (Exception $e) {
-
-    //             $conexion->rollBack();
-    //             http_response_code(500);
-    //             echo json_encode([
-    //                 'codigo' => 0,
-    //                 'mensaje' => 'Error al realizar el registro',
-    //                 'detalle' => $e->getMessage()
-    //             ]);
-    //         }
-    //     } else {
-    //         echo json_encode([
-    //             'codigo' => 0,
-    //             'mensaje' => 'No se recibieron datos.'
-    //         ]);
-    //     }
-    // }
 
 
     public static function AsignarDependenciaAPI()
@@ -478,6 +367,66 @@ class AsignacionEquipoController
             echo json_encode([
                 'codigo' => 0,
                 'mensaje' => 'No se recibieron datos.'
+            ]);
+        }
+    }
+
+    public static function AgregarAccesoriosNuevosAPI()
+    {
+
+        $idEquipo = filter_var($_POST['idEquipo'], FILTER_SANITIZE_NUMBER_INT);
+        $idAccesorio = filter_var($_POST['idAccesorio'], FILTER_SANITIZE_NUMBER_INT);
+        $cantidad = filter_var($_POST['cantidad'], FILTER_SANITIZE_NUMBER_INT);
+        $estado = filter_var($_POST['estado'], FILTER_SANITIZE_NUMBER_INT);
+
+
+        try {
+            $agregar_accesorio = new AsignacionAccesorio([
+                'asig_equipo' => $idEquipo,
+                'asig_accesorio' => $idAccesorio,
+                'asig_cantidad' => $cantidad,
+                'asig_estado' => $estado,
+                'asig_situacion' => 1
+            ]);
+
+            header('Content-Type: application/json');
+            $crear = $agregar_accesorio->crear();
+
+            http_response_code(200);
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => 'Accesorio añadido correctamente'
+            ]);
+        } catch (Exception $e) {
+
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al realizar el registro',
+                'detalle' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public static function  EliminarAccesoriosAPI(){
+
+        $idEquipo = filter_var($_POST['idEquipo'], FILTER_SANITIZE_NUMBER_INT);
+        $idAccesorio = filter_var($_POST['idAccesorio'], FILTER_SANITIZE_NUMBER_INT);
+
+        try {
+
+            $eliminarAccesorio = AsignacionAccesorio::EliminarAccesorioAsignado($idEquipo,$idAccesorio);
+            http_response_code(200);
+            echo json_encode([
+                'codigo' => 4,
+                'mensaje' => 'Accesorio eliminado exitosamente',
+            ]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al eliminar el Accesorio',
+                'detalle' => $e->getMessage(),
             ]);
         }
     }

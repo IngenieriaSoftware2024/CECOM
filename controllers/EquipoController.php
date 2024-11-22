@@ -217,4 +217,79 @@ class EquipoController
             ]);
         }
     }
+
+    public static function ModificarEquipoAPI()
+    {
+
+        $data = json_decode(file_get_contents('php://input'), true);
+        if ($data === null) {
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error en la decodificación de los datos JSON.'
+            ]);
+            return;
+        }
+
+
+        $accesorios = $data['accesorios'] ?? [];
+        
+        $eqp_id = $data['eqp_id'] ?? null;
+        $eqp_clase = $data['eqp_clase'] ?? null;
+        $eqp_estado = $data['eqp_estado'] ?? null;
+        $eqp_gama = $data['eqp_gama'] ?? null;
+        $eqp_marca = $data['eqp_marca'] ?? null;
+        $eqp_serie = $data['eqp_serie'] ?? null;
+
+        try {
+
+            $conexion = Equipo::getDB();
+            $conexion->beginTransaction();
+
+
+            $data = Equipo::find($eqp_id);
+            $data->sincronizar([
+                'eqp_clase' => $eqp_clase,
+                'eqp_serie' => $eqp_serie,
+                'eqp_gama' => $eqp_gama,
+                'eqp_marca' => $eqp_marca,
+                'eqp_estado' => $eqp_estado,
+            ]);
+            $data->actualizar();
+
+            if ($data) {
+
+                if ($accesorios && is_array($accesorios)) {
+
+                    foreach ($accesorios as $accesorio) {
+
+                        $asig_cantidad = $accesorio['cantidad'];
+                        $asig_estado = $accesorio['estado'];
+                        $asig_accesorio = $accesorio['id'];
+
+                        $sql = "UPDATE CECOM_ASIG_ACCESORIOS SET ASIG_CANTIDAD = '$asig_cantidad', ASIG_ESTADO = '$asig_estado' 
+                                WHERE ASIG_EQUIPO = '$eqp_id' AND ASIG_ACCESORIO = '$asig_accesorio'";
+                        
+                        $modificar = Equipo::SQL($sql);
+                    }
+                }
+            }
+
+            $conexion->commit();
+
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => 'Equipo y accesorios guardados con éxito.'
+            ]);
+        } catch (Exception $e) {
+
+
+            $conexion->rollBack();
+
+            http_response_code(500);
+            echo json_encode([
+                'mensaje' => 'Error al registrar este equipo y accesorios',
+                'detalle' => $e->getMessage()
+            ]);
+        }
+    }
 }

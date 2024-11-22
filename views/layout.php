@@ -69,6 +69,13 @@
                             <i class="bi bi-crosshair2 me-2"></i>Mapa General
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/CECOM/reportes">
+                            <i class="bi bi-file-earmark-text-fill me-2"></i>Reportes
+                        </a>
+                    </li>
+
                 </ul>
 
 

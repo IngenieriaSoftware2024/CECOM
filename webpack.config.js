@@ -14,6 +14,7 @@ module.exports = {
     'js/mapa/index' : './src/js/mapa/index.js',
     'js/mantenimiento/index' : './src/js/mantenimiento/index.js',
     'js/equipos/modificacion' : './src/js/equipos/modificacion.js',
+    'js/reportes/reportes' : './src/js/reportes/reportes.js',
 
   },
   output: {

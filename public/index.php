@@ -10,6 +10,7 @@ use MVC\Router;
 use Controllers\InicioController;
 use Controllers\MapaController;
 use Controllers\MarcaController;
+use Controllers\ReportesController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -48,7 +49,6 @@ $router->get('/API/datosusuario/buscar', [AsignacionEquipoController::class, 'Da
 $router->post('/API/asignacion_destino/guardar', [AsignacionEquipoController::class, 'AsignarDestinoAPI']);
 
 
-
 //DESTACAMENTOS
 $router->get('/destacamentos', [DestacamentoController::class, 'index']);
 $router->get('/API/destacamentos/buscar', [DestacamentoController::class, 'BuscarDestacamentoAPI']);
@@ -77,6 +77,14 @@ $router->post('/API/mantenimiento/Entregar', [MantenimientoController::class, 'E
 $router->get('/modificacion/equipos', [EquipoController::class, 'indexModficacion']);
 $router->get('/API/mantenimientos/buscartodos', [EquipoController::class, 'BuscarTodosEquiposAPI']);
 $router->post('/API/equipo/tipo-accesorios', [EquipoController::class, 'AccesoriosInformacionAPI']);
+$router->post('/API/equipo/modificar', [EquipoController::class, 'ModificarEquipoAPI']);
+
+$router->post('/API/accesoriosnuevo/agregar', [AsignacionEquipoController::class, 'AgregarAccesoriosNuevosAPI']);
+$router->post('/API/accesorios/eliminar', [AsignacionEquipoController::class, 'EliminarAccesoriosAPI']);
+
+
+// GENERACION DE REPORTES
+$router->get('/reportes', [ReportesController::class, 'index']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

@@ -23,6 +23,12 @@ class AsignacionAccesorio extends ActiveRecord
         $this->asig_estado = $args['asig_estado'] ?? null;
         $this->asig_situacion = $args['asig_situacion'] ?? 1;
     }
+
+    public static function EliminarAccesorioAsignado($idEquipo, $idAccesorio ){
+        $sql = "UPDATE CECOM_ASIG_ACCESORIOS SET ASIG_SITUACION = 0 WHERE ASIG_EQUIPO = '$idEquipo' AND ASIG_ACCESORIO = '$idAccesorio'";
+
+        return self::SQL($sql);
+    }
 }
 
 
