@@ -46,8 +46,9 @@
                             <li><a class="dropdown-item" href="/CECOM/accesorios"><i class="bi bi-box-seam me-2"></i>Accesorios</a></li>
                             <li><a class="dropdown-item" href="/CECOM/equipo"><i class="bi bi-clipboard-plus-fill me-2"></i>Registro de Equipo</a></li>
                             <li><a class="dropdown-item" href="/CECOM/asignaciones"><i class="bi bi-clipboard-plus me-2"></i>Asignación de Equipo</a></li>
-                            <li><a class="dropdown-item" href="/CECOM/mantenimiento"><i class="bi bi-hammer me-2"></i>Equipos Enviados a Mantenimiento</a></li>
-                        
+                            <li><a class="dropdown-item" href="/CECOM/mantenimiento"><i class="bi bi-tools me-2"></i>Equipos Enviados a Mantenimiento</a></li>
+                            <li><a class="dropdown-item" href="/CECOM/modificacion/equipos"><i class="bi bi-pencil-fill me-2"></i>Modificacion de Equipos</a></li>
+
                         </ul>
                     </li>
 

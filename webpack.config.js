@@ -13,7 +13,7 @@ module.exports = {
     'js/destacamentos/index' : './src/js/destacamentos/index.js',
     'js/mapa/index' : './src/js/mapa/index.js',
     'js/mantenimiento/index' : './src/js/mantenimiento/index.js',
-
+    'js/equipos/modificacion' : './src/js/equipos/modificacion.js',
 
   },
   output: {

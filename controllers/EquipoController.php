@@ -19,6 +19,15 @@ class EquipoController
         ]);
     }
 
+    public static function indexModficacion(Router $router)
+    {
+        $marcas = Equipo::ObtenerMarcas();
+        $router->render('equipos/modificacion', [
+            'marcas' => $marcas
+        ]);
+    }
+
+
     public static function AccesoriosEquipoAPI()
     {
         $id = filter_var($_GET['tipo'], FILTER_SANITIZE_NUMBER_INT);
@@ -90,8 +99,6 @@ class EquipoController
                 'eqp_gama' => $eqp_gama,
                 'eqp_marca' => $eqp_marca,
                 'eqp_estado' => $eqp_estado,
-                'eqp_situacion' => 1,
-
             ]);
 
 
@@ -100,18 +107,18 @@ class EquipoController
             if ($crear_equipo) {
 
                 $id = Equipo::UltimoID();
-                $id_json = json_encode($id); 
+                $id_json = json_encode($id);
 
-                
+
                 $id_array = json_decode($id_json, true);
-                
-                $ultimo_id = $id_array[0]['ultimo_id'] ?? null; 
-                
+
+                $ultimo_id = $id_array[0]['ultimo_id'] ?? null;
+
 
                 if ($accesorios && is_array($accesorios)) {
-                    
+
                     foreach ($accesorios as $accesorio) {
-                        
+
                         $asignacion_accesorios = new AsignacionAccesorio([
                             'asig_equipo' => $ultimo_id,
                             'asig_accesorio' => $accesorio['id'],
@@ -122,8 +129,8 @@ class EquipoController
                         $asignar_accesorio = $asignacion_accesorios->crear();
                     }
 
-                    if($asignar_accesorio){
-                        
+                    if ($asignar_accesorio) {
+
                         $brigada_comunicaciones = $_SESSION['dep_llave'];
                         $fecha_actual = date('Y-m-d');
                         $Plaza = Equipo::BuscarPlazaOfsGuardalmacen($brigada_comunicaciones);
@@ -143,7 +150,6 @@ class EquipoController
                         $asignacion_brigada = $asignar_brigada_comnicaciones->crear();
                     }
                 }
-   
             }
             //Subir los cambios si se cumplen las condiciones
             $conexion->commit();
@@ -152,8 +158,6 @@ class EquipoController
                 'codigo' => 1,
                 'mensaje' => 'Equipo y accesorios guardados con éxito.'
             ]);
-    
-
         } catch (Exception $e) {
 
             //Devuelve los cambios si no se tuvo exito
@@ -164,7 +168,53 @@ class EquipoController
                 'mensaje' => 'Error al registrar este equipo y accesorios',
                 'detalle' => $e->getMessage()
             ]);
+        }
+    }
 
+    public static function BuscarTodosEquiposAPI()
+    {
+
+        try {
+            $data = Equipo::ObtenerTodosEquipos();
+            http_response_code(200);
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => "Datos encontrados correctamente",
+                'data' => $data
+            ]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'mensaje' => 'Error al realizar la busqueda',
+                'detalle' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public static function AccesoriosInformacionAPI()
+    {
+        $tipo = filter_var($_POST['tipo'], FILTER_SANITIZE_NUMBER_INT);
+        $idEquipo = filter_var($_POST['idEquipo'], FILTER_SANITIZE_NUMBER_INT);
+
+        try {
+
+            $accesorios = Equipo::AccesoriosEquipo($tipo);
+            $equipo = Equipo::ObtenerAccesoriosAsignadosEquipo($idEquipo);
+
+            if ($accesorios && $equipo) {
+                $resultado = [
+                    'accesorios_disponibles' => $accesorios,
+                    'accesorios_asignados' => $equipo,
+                ];
+                http_response_code(200);
+                echo json_encode($resultado);
+            }
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'mensaje' => 'Error al realizar la busqueda',
+                'detalle' => $e->getMessage()
+            ]);
         }
     }
 }

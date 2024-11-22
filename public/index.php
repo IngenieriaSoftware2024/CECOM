@@ -73,6 +73,11 @@ $router->get('/API/mantenimientos/datosEquipo', [MantenimientoController::class,
 $router->post('/API/mantenimiento/Entregar', [MantenimientoController::class, 'EntregarAPI']);
 
 
+// MODIFICACION DE EQUIPOOS
+$router->get('/modificacion/equipos', [EquipoController::class, 'indexModficacion']);
+$router->get('/API/mantenimientos/buscartodos', [EquipoController::class, 'BuscarTodosEquiposAPI']);
+$router->post('/API/equipo/tipo-accesorios', [EquipoController::class, 'AccesoriosInformacionAPI']);
+
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
