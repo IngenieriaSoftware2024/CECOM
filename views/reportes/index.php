@@ -1,3 +1,4 @@
+
 <div class="row justify-content-center mb-3">
     <div class="col-lg-10 col-md-11 col-sm-12">
         <div class="card custom-card shadow-lg" style="border-radius: 15px; border: 1px solid #007bff;">
@@ -65,8 +66,8 @@
 
 
                         <div class="col-md-4">
-                            <label for="asi_estatus" class="form-label">ESTATUS DEL EQUIPO</label>
-                            <select name="asi_estatus" id="asi_estatus" class="form-select">
+                            <label for="asi_status" class="form-label">ESTATUS DEL EQUIPO</label>
+                            <select name="asi_status" id="asi_status" class="form-select">
                                 <option value="">SELECCIONE...</option>
                                 <option value="3">OPERATIVOS</option>
                                 <option value="5">ALMACEN DE LA BRIGADA DE COMUNICACIONES</option>

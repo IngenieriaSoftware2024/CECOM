@@ -12,8 +12,7 @@ import 'datatables.net-buttons/js/buttons.print.mjs';
 import jszip from 'jszip';
 window.JSZip = require('jszip')
 
-const Formulario = document.getElementById('FormularioBusqueda');
-const BtnBuscar = document.getElementById('BtnBuscar');
+
 
 const Buscar = async (e) => {
 
@@ -27,21 +26,18 @@ const Buscar = async (e) => {
         }
     });
 
-    e.preventDefault();
-
-    BtnBuscar.disabled = true
 
     try {
-        const body = new FormData(Formulario);
-        const url = '/CECOM/API/reportes/buscar';
+        const url = '/CECOM/API/historial/buscar';
 
         const config = {
-            method: 'POST',
-            body
+            method: 'GET'
         };
 
         const respuesta = await fetch(url, config);
         const datos = await respuesta.json();
+
+        console.log(datos)
 
         const { codigo, mensaje, data } = datos;
 
@@ -89,11 +85,10 @@ const Buscar = async (e) => {
     } catch (error) {
         console.log(error);
     }
-    BtnBuscar.disabled = false;
-    Formulario.reset();
 };
 
-const datatable = new DataTable('#EquiposEcontrados', {
+
+const datatable = new DataTable('#EquiposHistorial', {
     dom: `
         <"row mb-3"
             <"col-md-2 d-flex align-items-center"l>
@@ -143,12 +138,19 @@ const datatable = new DataTable('#EquiposEcontrados', {
             width: '%',
             render: (data, type, row, meta) => meta.row + 1
         },
-        { title: 'Clase', data: 'clase' },
-        { title: 'Marca', data: 'marca' },
-        { title: 'Gama', data: 'gama' },
-        { title: 'No. Serie', data: 'eqp_serie' },
-        { title: 'Asignado a:', data: 'dependencia' }
+        { title: 'Equipo', data: 'equipo_descripcion' },
+        { title: 'Dependencia', data: 'dependencia' },
+        { title: 'Fecha Ingreso', data: 'rep_fecha_entrada' },
+        { title: 'Entrego a Almacen', data: 'entregado_nombre_completo' },
+        { title: 'Fecha Salida', data: 'rep_fecha_salida' },
+        { title: 'Entregado a', data: 'recibido_nombre_completo' },
+        { title: 'Motivo Mantenimiento', data: 'rep_desc' },
+        { title: 'Estado al ingresar', data: 'rep_estado_ant_desc' },
+        { title: 'Estado al egresar', data: 'rep_estado_actual_desc' },
+        { title: 'Responsable Mantenimiento', data: 'responsable_nombre_completo' },
+        { title: 'Estatus', data: 'rep_status_desc' },
+        { title: 'Observaciones', data: 'rep_obs' }
     ]
 });
 
-Formulario.addEventListener('submit', Buscar)
+Buscar();

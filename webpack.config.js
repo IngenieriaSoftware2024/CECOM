@@ -15,6 +15,7 @@ module.exports = {
     'js/mantenimiento/index' : './src/js/mantenimiento/index.js',
     'js/equipos/modificacion' : './src/js/equipos/modificacion.js',
     'js/reportes/reportes' : './src/js/reportes/reportes.js',
+    'js/reportes/historial' : './src/js/reportes/historial.js',
 
   },
   output: {
