@@ -36,22 +36,23 @@
                         </a>
                     </li>
 
+                    <?php if ($_SESSION['CECOM_ADMINISTR']) : ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                <i class="bi bi-hammer me-2"></i>Mantenimientos
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="/CECOM/marcas"><i class="bi bi-award me-2"></i>Marcas</a></li>
+                                <li><a class="dropdown-item" href="/CECOM/accesorios"><i class="bi bi-box-seam me-2"></i>Accesorios</a></li>
+                                <li><a class="dropdown-item" href="/CECOM/equipo"><i class="bi bi-clipboard-plus-fill me-2"></i>Registro de Equipo</a></li>
+                                <li><a class="dropdown-item" href="/CECOM/asignaciones"><i class="bi bi-clipboard-plus me-2"></i>Asignación de Equipo</a></li>
+                                <li><a class="dropdown-item" href="/CECOM/mantenimiento"><i class="bi bi-tools me-2"></i>Equipos Enviados a Mantenimiento</a></li>
+                                <li><a class="dropdown-item" href="/CECOM/modificacion/equipos"><i class="bi bi-pencil-fill me-2"></i>Modificacion de Equipos</a></li>
+                                <li><a class="dropdown-item" href="/CECOM/historial/mantenimientos"><i class="bi bi-clock-history me-2"></i>Historial Reparaciones y Manttos</a></li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <i class="bi bi-hammer me-2"></i>Mantenimientos
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="/CECOM/marcas"><i class="bi bi-award me-2"></i>Marcas</a></li>
-                            <li><a class="dropdown-item" href="/CECOM/accesorios"><i class="bi bi-box-seam me-2"></i>Accesorios</a></li>
-                            <li><a class="dropdown-item" href="/CECOM/equipo"><i class="bi bi-clipboard-plus-fill me-2"></i>Registro de Equipo</a></li>
-                            <li><a class="dropdown-item" href="/CECOM/asignaciones"><i class="bi bi-clipboard-plus me-2"></i>Asignación de Equipo</a></li>
-                            <li><a class="dropdown-item" href="/CECOM/mantenimiento"><i class="bi bi-tools me-2"></i>Equipos Enviados a Mantenimiento</a></li>
-                            <li><a class="dropdown-item" href="/CECOM/modificacion/equipos"><i class="bi bi-pencil-fill me-2"></i>Modificacion de Equipos</a></li>
-                            <li><a class="dropdown-item" href="/CECOM/historial/mantenimientos"><i class="bi bi-clock-history me-2"></i>Historial Reparaciones y Manttos</a></li>
-                            
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
 
 
                     <li class="nav-item dropdown">

@@ -8,6 +8,8 @@ use MVC\Router;
 
 class AccesorioController{
     public static function index(Router $router){
+        isAuth();
+        hasPermission(['CECOM_ADMINISTR']);
         $router->render('accesorios/index', []);
     }
 

@@ -4,7 +4,6 @@
         display: inline-block;
         width: 50px;
         height: 25px;
-
     }
 
     .switch input {
@@ -46,24 +45,29 @@
     }
 
     @media (max-width: 768px) {
-        .switch {
-            width: 60px;
-
-            height: 30px;
-
+        .row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
         }
 
-        .switch label:before {
-            height: 20px;
-            width: 20px;
+        .col-lg-6 {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
         }
 
-        .switch input:checked+label:before {
-            transform: translateX(30px);
+        .col {
+            flex: 0 0 auto;
+            margin: 10px;
         }
     }
 </style>
-
 
 
 <div class="row justify-content-center">
@@ -119,7 +123,13 @@
     <div class="col-lg-12 col-md-10 col-sm-12" style="padding: 0; height: 100%;">
         <div class="card shadow-lg" style="border-radius: 10px; border: 1px solid #007bff; height: 100%; margin: 0;">
             <div class="card-body" style="padding: 10px; height: 100%;">
-                <h5 class="card-title text-center" style="margin-bottom: 10px;">Equipos desplegados a nivel nacional</h5>
+                <?php if ($_SESSION['CECOM_ADMINISTR']) : ?>
+                    <h5 class="card-title text-center mb-2">Equipos desplegados a nivel nacional</h5>
+                <?php endif; ?>
+                <?php if ($_SESSION['CECOM_USUARIO']) : ?>
+                    <h5 class="card-title text-center mb-2">Equipos desplegados de: <b> <?php echo $dependencia['dependencia']; ?></b></b></h5>
+                <?php endif; ?>
+                <p class="text-center mb-2"><b>Click sobre sobre el destacamento para ver los equipos asignados al mismo</b></p>
                 <div style="height: calc(100% - 40px); overflow: hidden;">
                     <div id="map" style="height: 100%; width: 100%;"></div>
                 </div>

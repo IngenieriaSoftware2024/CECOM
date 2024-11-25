@@ -12,6 +12,9 @@ class ReportesController
 {
     public static function index(Router $router)
     {
+        isAuth();
+        hasPermission(['CECOM_ADMINISTR', 'CECOM_USUARIO']);
+
         $destamentos = Destacamentos::TodosDestacamentosActivos();
         $dependencias = AsignacionDependencia::Dependencias();
         $marcas = Equipo::ObtenerMarcas();
@@ -25,7 +28,8 @@ class ReportesController
 
     public static function indexHistorial(Router $router)
     {
-
+        isAuth();
+        hasPermission(['CECOM_ADMINISTR']);
         $router->render('reportes/historial_mantto', []);
     }
 
@@ -49,8 +53,8 @@ class ReportesController
 
             if ($asi_status == 7) {
                 $Situacion = 0;
-            }else{
-            $Situacion = 1;
+            } else {
+                $Situacion = 1;
             }
 
             $sql = "SELECT EQP_ID, EQP_CLASE, EQP_SERIE, EQP_GAMA, EQP_MARCA, EQP_ESTADO, DEP_DESC_MD AS DEPENDENCIA, 
@@ -94,7 +98,15 @@ class ReportesController
                 $sql .= " AND ubi_id = $ubi_id";
             }
 
+            if ($_SESSION['CECOM_USUARIO']) {
+
+                $dependencia = $_SESSION['dep_llave'];
+                $sql .= " AND asi_dependencia = $dependencia";
+            }
+
+
             $data = Equipo::fetchArray($sql);
+
 
             http_response_code(200);
             echo json_encode([
@@ -187,6 +199,35 @@ class ReportesController
                 'codigo' => 1,
                 'mensaje' => "Datos encontrados correctamente",
                 'data' => $data
+            ]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'Error al realizar la busqueda',
+                'detalle' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public static function InformacionEquipoSeleccionadoAPI()
+    {
+
+        $idEquipo = filter_var($_GET['equipo'], FILTER_SANITIZE_NUMBER_INT);
+     
+        try {
+            $Informacion = Destacamentos::InformacionGeneral($idEquipo);
+            $Accesorios = Destacamentos::AccesorioEquipo($idEquipo);
+            $Movimientos = Destacamentos::HistorialMovimientos($idEquipo);
+            $Mantenimientos = Destacamentos::HistorialMantenimientos($idEquipo); 
+            
+            echo json_encode([
+                'codigo' => 1,
+                'mensaje' => 'Exito, busqueda completada',
+                'Informacion' => $Informacion,
+                'Accesorios' => $Accesorios,
+                'Movimientos' => $Movimientos,
+                'Mantenimientos' => $Mantenimientos
             ]);
         } catch (Exception $e) {
             http_response_code(500);

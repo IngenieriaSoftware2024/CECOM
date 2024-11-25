@@ -37,7 +37,7 @@ const Buscar = async (e) => {
         const respuesta = await fetch(url, config);
         const datos = await respuesta.json();
 
-        console.log(datos)
+        // console.log(datos)
 
         const { codigo, mensaje, data } = datos;
 

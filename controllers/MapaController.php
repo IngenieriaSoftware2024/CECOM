@@ -10,7 +10,14 @@ class MapaController
 {
     public static function index(Router $router)
     {
-        $router->render('mapa/index', []);
+        isAuth();
+        hasPermission(['CECOM_ADMINISTR', 'CECOM_USUARIO']);
+        
+        $catalogo = $_SESSION['auth_user'];
+        $dependencia = Destacamentos::Dependencia($catalogo);
+        $router->render('mapa/index', [
+            'dependencia' => $dependencia
+        ]);
     }
 
     public static function DestacamentoActivosAPI()

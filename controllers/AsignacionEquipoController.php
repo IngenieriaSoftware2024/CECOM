@@ -12,7 +12,9 @@ class AsignacionEquipoController
 {
     public static function index(Router $router)
     {
-
+        isAuth();
+        hasPermission(['CECOM_ADMINISTR']);
+        
         $dependencias = AsignacionDependencia::Dependencias();
 
         $router->render('asignaciones/index', [
@@ -22,6 +24,9 @@ class AsignacionEquipoController
 
     public static function index2(Router $router)
     {
+        isAuth();
+        hasPermission(['CECOM_ADMINISTR', 'CECOM_USUARIO']);
+
         $dep_llave = $_SESSION['dep_llave'];
         $catalogo = $_SESSION['auth_user'];
         $dependencia = Destacamentos::Dependencia($catalogo);

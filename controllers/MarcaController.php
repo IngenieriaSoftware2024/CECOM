@@ -10,6 +10,9 @@ class MarcaController
 {
     public static function index(Router $router)
     {
+        isAuth();
+        hasPermission(['CECOM_ADMINISTR']);
+
         $router->render('marcas/index', []);
     }
 

@@ -11,6 +11,9 @@ class MantenimientoController
 {
     public static function index(Router $router)
     {
+        isAuth();
+        hasPermission(['CECOM_ADMINISTR']);
+
         $router->render('mantenimientos/mantenimiento', []);
     }
 

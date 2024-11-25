@@ -11,6 +11,9 @@ class DestacamentoController
     public static function index(Router $router)
     {
 
+        isAuth();
+        hasPermission(['CECOM_ADMINISTR', 'CECOM_USUARIO']);
+        
         $catalogo = $_SESSION['auth_user'];
         $dependencia = Destacamentos::Dependencia($catalogo);
 

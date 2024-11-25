@@ -13,6 +13,9 @@ class EquipoController
     public static function index(Router $router)
     {
 
+        isAuth();
+        hasPermission(['CECOM_ADMINISTR']);
+
         $marcas = Equipo::ObtenerMarcas();
         $router->render('equipos/index', [
             'marcas' => $marcas
@@ -21,6 +24,9 @@ class EquipoController
 
     public static function indexModficacion(Router $router)
     {
+        isAuth();
+        hasPermission(['CECOM_ADMINISTR']);
+
         $marcas = Equipo::ObtenerMarcas();
         $router->render('equipos/modificacion', [
             'marcas' => $marcas
