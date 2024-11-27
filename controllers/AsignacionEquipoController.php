@@ -143,7 +143,7 @@ class AsignacionEquipoController
 
                         $motivo = htmlspecialchars(trim(mb_strtoupper(
                             mb_convert_encoding(
-                                "Eliminado por: {$responsable['grado_arma']} {$responsable['nombre_completo']}. Motivo: {$equipos['motivo']}",
+                                "Eliminado por: {$responsable['grado_arma']} {$responsable['nombre_completo']} MOTIVO: {$equipos['motivo']}",
                                 'UTF-8'
                             )
                         )));

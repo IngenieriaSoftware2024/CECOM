@@ -367,32 +367,48 @@ modalElement.addEventListener('hidden.bs.modal', () => {
     InputDestacamento.value = '';
 });
 
-const mostrarDestacamentos = async () => {
-    const Dependencia = SelectDependencia.value.trim();
+if (SelectDependencia) { 
+    const mostrarDestacamentos = async () => {
+        const Dependencia = SelectDependencia.value.trim();
 
-    try {
-        const url = `/CECOM/API/reportes/buscarDestacamentos?dependencia=${Dependencia}`;
-        const config = { method: 'GET' };
+        try {
+            const url = `/CECOM/API/reportes/buscarDestacamentos?dependencia=${Dependencia}`;
+            const config = { method: 'GET' };
 
-        const respuesta = await fetch(url, config);
-        const datos = await respuesta.json();
+            const respuesta = await fetch(url, config);
+            const datos = await respuesta.json();
 
-        SelectDestacamento.innerHTML = '<option value="">SELECCIONE...</option>';
+            SelectDestacamento.innerHTML = '<option value="">SELECCIONE...</option>';
 
-        if (datos && datos.length > 0) {
-
-            datos.forEach(destacamento => {
-                const option = document.createElement('option');
-                option.value = destacamento.ubi_id;
-                option.textContent = destacamento.ubi_nombre;
-                SelectDestacamento.appendChild(option);
-            });
-        } else {
+            if (datos && datos.length > 0) {
+                datos.forEach(destacamento => {
+                    const option = document.createElement('option');
+                    option.value = destacamento.ubi_id;
+                    option.textContent = destacamento.ubi_nombre;
+                    SelectDestacamento.appendChild(option);
+                });
+            } else {
+                Swal.fire({
+                    title: '¡Error!',
+                    text: 'No se encontraron destacamentos para esta dependencia',
+                    icon: 'warning',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true,
+                    background: '#e0f7fa',
+                    customClass: {
+                        title: 'custom-title-class',
+                        text: 'custom-text-class'
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Error al obtener los destacamentos:', error);
 
             Swal.fire({
                 title: '¡Error!',
-                text: 'No se encontraron destacamentos para esta dependencia',
-                icon: 'warning',
+                text: 'Error al obtener los destacamentos',
+                icon: 'error',
                 showConfirmButton: false,
                 timer: 1500,
                 timerProgressBar: true,
@@ -403,31 +419,12 @@ const mostrarDestacamentos = async () => {
                 }
             });
         }
-    } catch (error) {
-        console.error('Error al obtener los destacamentos:', error);
+    };
 
-        Swal.fire({
-            title: '¡Error!',
-            text: 'Error al obtener los destacamentos',
-            icon: 'error',
-            showConfirmButton: false,
-            timer: 1500,
-            timerProgressBar: true,
-            background: '#e0f7fa',
-            customClass: {
-                title: 'custom-title-class',
-                text: 'custom-text-class'
-            }
-        });
-    }
-};
-
-// Añadir el evento para que la función se ejecute cuando el valor del select de dependencia cambie
-SelectDependencia.addEventListener('change', mostrarDestacamentos);
+    SelectDependencia.addEventListener('change', mostrarDestacamentos);
+}
 
 
 
 datatable.on('click', '.informacion', llenarDatos);
-SelectDependencia.addEventListener('change', mostrarDestacamentos)
-
 Formulario.addEventListener('submit', Buscar);
