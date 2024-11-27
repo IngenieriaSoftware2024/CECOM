@@ -126,30 +126,53 @@ class Destacamentos extends ActiveRecord
 
     //  FUNCIONES PARA MOSTRAR EN LA PESTANA REPORTES
 
-    public static function InformacionGeneral($idEquipo)
+    public static function InformacionGeneral($idEquipo, $Status)
     {
 
-        $sql = " SELECT PER_CATALOGO, EQP_ID, EQP_SERIE AS SERIE, clase.CAR_NOMBRE AS CLASE, gama.CAR_NOMBRE AS GAMA, MAR_DESCRIPCION AS MARCA, 
-                situacion_status.SIT_DESCRIPCION AS ESTATUS, TRIM(gra_desc_lg)||' DE '||TRIM(arm_desc_lg) AS GRADO, estado.SIT_DESCRIPCION AS ESTADO,
-                TRIM(per_nom1)|| ' ' ||TRIM(per_nom2)|| ' ' ||TRIM(per_ape1)|| ' ' ||TRIM(per_ape2)AS RESPONSABLE, UBI_NOMBRE FROM CECOM_EQUIPO
+        $situacion = ($Status == 7) ? 0 : 1;
+    
+  
+        $sql = "SELECT EQP_ID, EQP_SERIE AS SERIE, clase.CAR_NOMBRE AS CLASE, gama.CAR_NOMBRE AS GAMA, 
+                    MAR_DESCRIPCION AS MARCA, 
+                    situacion_status.SIT_DESCRIPCION AS ESTATUS, 
+                    estado.SIT_DESCRIPCION AS ESTADO, 
+                    UBI_NOMBRE ";
+    
+
+        if ($Status != 7) {
+            $sql .= ", TRIM(gra_desc_lg) || ' DE ' || TRIM(arm_desc_lg) AS GRADO, 
+                       TRIM(per_nom1) || ' ' || TRIM(per_nom2) || ' ' || TRIM(per_ape1) || ' ' || TRIM(per_ape2) AS RESPONSABLE, 
+                       PER_CATALOGO ";
+        }
+    
+
+        $sql .= "FROM CECOM_EQUIPO
                 INNER JOIN CECOM_CARACTERISTICAS AS clase ON clase.CAR_ID = EQP_CLASE
                 INNER JOIN CECOM_CARACTERISTICAS AS gama ON gama.CAR_ID = EQP_GAMA
                 INNER JOIN CECOM_MARCAS ON EQP_MARCA = MAR_ID
                 INNER JOIN CECOM_ASIG_EQUIPO ON ASI_EQUIPO = EQP_ID
                 INNER JOIN CECOM_SITUACIONES AS situacion_status ON CECOM_ASIG_EQUIPO.ASI_STATUS = situacion_status.SIT_LLAVE
                 INNER JOIN CECOM_SITUACIONES AS estado ON estado.SIT_LLAVE = EQP_ESTADO
-                LEFT JOIN MPER ON PER_PLAZA = ASI_RESPONSABLE
-                LEFT JOIN CECOM_DEST_BRGS ON UBI_ID = ASI_DESTACAMENTO
-                INNER JOIN grados ON gra_codigo = per_grado
-                INNER JOIN armas ON arm_codigo = per_arma
-                WHERE ASI_EQUIPO = $idEquipo AND ASI_SITUACION = 1";
+                LEFT JOIN CECOM_DEST_BRGS ON UBI_ID = ASI_DESTACAMENTO ";
+    
 
+        if ($Status != 7) {
+            $sql .= "LEFT JOIN MPER ON PER_PLAZA = ASI_RESPONSABLE
+                     INNER JOIN grados ON gra_codigo = per_grado
+                     INNER JOIN armas ON arm_codigo = per_arma ";
+        }
+    
 
+        $sql .= "WHERE ASI_EQUIPO = $idEquipo AND ASI_SITUACION = $situacion";
+    
         return self::fetchFirst($sql);
     }
+    
+    
 
     public static function AccesorioEquipo($idEquipo)
     {
+    
 
         $sql = "SELECT ASIG_EQUIPO, ACC_NOMBRE, ASIG_CANTIDAD, SIT_DESCRIPCION FROM cecom_asig_accesorios
                 INNER JOIN CECOM_ACCESORIOS ON ACC_ID = ASIG_ACCESORIO
@@ -163,7 +186,7 @@ class Destacamentos extends ActiveRecord
     {
 
         $sql = "SELECT DEP_DESC_MD AS DEPENDENCIA, UBI_NOMBRE, ASI_FECHA, ASI_MOTIVO, SIT_DESCRIPCION FROM CECOM_ASIG_EQUIPO
-                INNER JOIN MDEP ON DEP_LLAVE  = ASI_DEPENDENCIA
+                LEFT JOIN MDEP ON DEP_LLAVE  = ASI_DEPENDENCIA
                 LEFT JOIN CECOM_DEST_BRGS ON UBI_ID = ASI_DESTACAMENTO
                 INNER JOIN CECOM_SITUACIONES ON SIT_LLAVE = ASI_STATUS
                 WHERE ASI_EQUIPO = $idEquipo

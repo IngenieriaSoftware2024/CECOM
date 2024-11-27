@@ -86,13 +86,14 @@ $router->post('/API/accesorios/eliminar', [AsignacionEquipoController::class, 'E
 // GENERACION DE REPORTES
 $router->get('/reportes', [ReportesController::class, 'index']);
 $router->post('/API/reportes/buscar', [ReportesController::class, 'BuscarCondiciones']);
-$router->get('/API/informaciongeneral/buscar', [ReportesController::class, 'InformacionEquipoSeleccionadoAPI']);
+$router->post('/API/informaciongeneral/buscar', [ReportesController::class, 'InformacionEquipoSeleccionadoAPI']);
 
 
 
 //HISTORIAL DE MANTENIMIENTOS Y REPARACIONES
 $router->get('/historial/mantenimientos', [ReportesController::class, 'indexHistorial']);
 $router->get('/API/historial/buscar', [ReportesController::class, 'HistorialBuscarAPI']);
+$router->get('/API/reportes/buscarDestacamentos', [ReportesController::class, 'DestacamentosDependenciaAPI']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

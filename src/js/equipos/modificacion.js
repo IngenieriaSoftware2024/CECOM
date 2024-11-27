@@ -38,7 +38,7 @@ const Buscar = async () => {
 
     const respuesta = await fetch(url, config);
     const datos = await respuesta.json();
-
+    
     const { codigo, mensaje, data } = datos
 
     if (codigo === 1) {
@@ -108,6 +108,11 @@ const datatable = new DataTable('#TablaEquipos', {
 });
 
 const llenarChechbox = async (e) => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+
     const datos = e.currentTarget.dataset;
 
     InputId.value = datos.id
@@ -238,7 +243,7 @@ const llenarChechbox = async (e) => {
                                             const agregarRespuesta = await fetch(agregarUrl, agregarConfig);
                                             const agregarResultado = await agregarRespuesta.json();
                                             console.log(agregarResultado)
-                                            const {codigo, mensaje } = agregarResultado
+                                            const { codigo, mensaje } = agregarResultado
 
                                             if (codigo === 1) {
                                                 await Swal.fire({
@@ -298,10 +303,10 @@ const llenarChechbox = async (e) => {
                                 try {
                                     const eliminarRespuesta = await fetch(eliminarUrl, eliminarConfig);
                                     const eliminarResultado = await eliminarRespuesta.json();
-                                    const {codigo, mensaje} = eliminarResultado
+                                    const { codigo, mensaje } = eliminarResultado
 
                                     if (codigo === 4) {
-                     
+
                                         await Swal.fire({
                                             title: 'Accesorio eliminado',
                                             text: mensaje,
@@ -309,14 +314,14 @@ const llenarChechbox = async (e) => {
                                             confirmButtonText: 'Aceptar',
                                         });
 
-                                 
+
                                         const cantidadInput = document.getElementById(`asig_cantidad_${accesorio.acc_id}`);
                                         const estadoSelect = document.getElementById(`asig_estado_${accesorio.acc_id}`);
-                                        if (cantidadInput) cantidadInput.value = ''; 
-                                        if (estadoSelect) estadoSelect.value = ''; 
+                                        if (cantidadInput) cantidadInput.value = '';
+                                        if (estadoSelect) estadoSelect.value = '';
 
                                     } else {
-                                       
+
                                         await Swal.fire({
                                             title: 'Error',
                                             text: `No se pudo eliminar el accesorio ${accesorio.acc_nombre}.`,
@@ -326,7 +331,7 @@ const llenarChechbox = async (e) => {
                                     }
                                 } catch (error) {
                                     console.error("Error al eliminar el accesorio:", error);
-                                   
+
                                     await Swal.fire({
                                         title: 'Error',
                                         text: 'Ocurrió un problema al procesar la solicitud.',
@@ -335,7 +340,7 @@ const llenarChechbox = async (e) => {
                                     });
                                 }
                             } else {
-                                
+
                                 checkbox.checked = true;
                             }
                         }
@@ -419,11 +424,11 @@ const VerificarSerie = async () => {
     }
 };
 
-const LimpiarFormulario = () =>{
+const LimpiarFormulario = () => {
 
     Formulario.reset();
-    accesoriosDiv.innerHTML = ''; 
-    accesoriosContainer.style.display = 'none'; 
+    accesoriosDiv.innerHTML = '';
+    accesoriosContainer.style.display = 'none';
 };
 
 
@@ -438,8 +443,8 @@ const Modificar = async (e) => {
         const cantidadInput = document.getElementById(`asig_cantidad_${id}`);
         const estadoSelect = document.getElementById(`asig_estado_${id}`);
 
-        if (!checkbox.checked) {  
-      
+        if (!checkbox.checked) {
+
             if (cantidadInput && estadoSelect) {
                 accesoriosValidos.push(cantidadInput.id, estadoSelect.id);
             }
@@ -502,7 +507,7 @@ const Modificar = async (e) => {
         });
         const data = await response.json();
         const { codigo, mensaje } = data;
-        
+
         Swal.close();
 
         if (codigo === 1) {
@@ -535,7 +540,7 @@ const Modificar = async (e) => {
                 }
             });
         }
-        
+
     } catch (error) {
         Swal.close();
         console.log("Error al enviar los datos:", error);
@@ -556,6 +561,7 @@ InputSerie.addEventListener('input', () => {
 
 
 datatable.on('click', '.modificar', llenarChechbox);
+
 BtnLimpiar.addEventListener('click', LimpiarFormulario);
 BtnModificar.addEventListener('click', Modificar);
 Buscar();

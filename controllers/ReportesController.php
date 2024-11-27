@@ -212,11 +212,12 @@ class ReportesController
 
     public static function InformacionEquipoSeleccionadoAPI()
     {
-
-        $idEquipo = filter_var($_GET['equipo'], FILTER_SANITIZE_NUMBER_INT);
+ 
+        $idEquipo = filter_var($_POST['idEquipo'], FILTER_SANITIZE_NUMBER_INT);
+        $Status = filter_var($_POST['Status'], FILTER_SANITIZE_NUMBER_INT);
      
         try {
-            $Informacion = Destacamentos::InformacionGeneral($idEquipo);
+            $Informacion = Destacamentos::InformacionGeneral($idEquipo, $Status);
             $Accesorios = Destacamentos::AccesorioEquipo($idEquipo);
             $Movimientos = Destacamentos::HistorialMovimientos($idEquipo);
             $Mantenimientos = Destacamentos::HistorialMantenimientos($idEquipo); 
@@ -237,5 +238,17 @@ class ReportesController
                 'detalle' => $e->getMessage(),
             ]);
         }
+    }
+
+    public static function DestacamentosDependenciaAPI(){
+
+        $dependencia = filter_var($_GET['dependencia'], FILTER_SANITIZE_NUMBER_INT);
+
+        $sql = "SELECT UBI_ID, UBI_NOMBRE FROM CECOM_DEST_BRGS WHERE UBI_SITUACION = 1 AND ubi_dependencia = $dependencia";
+
+        $data = Equipo::fetchArray($sql);
+
+        echo json_encode($data);
+        
     }
 }

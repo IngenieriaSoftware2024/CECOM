@@ -110,9 +110,11 @@
                             <label for="ubi_id" class="form-label">POR DESTACAMENTOS</label>
                             <select name="ubi_id" id="ubi_id" class="form-select">
                                 <option value="">SELECCIONE...</option>
-                                <?php foreach ($destacamentos as $destamento) : ?>
-                                    <option value="<?= $destamento['ubi_id'] ?>"><?= $destamento['ubi_nombre'] ?></option>
-                                <?php endforeach ?>
+                                <?php if ($_SESSION['CECOM_USUARIO']) : ?>
+                                    <?php foreach ($destacamentos as $destamento) : ?>
+                                        <option value="<?= $destamento['ubi_id'] ?>"><?= $destamento['ubi_nombre'] ?></option>
+                                    <?php endforeach ?>
+                                <?php endif; ?>
                             </select>
                         </div>
                     </div>
@@ -176,7 +178,7 @@
                                     <div class="card-body">
                                         <h3 class="text-center mb-2">Información General</h3>
                                         <div class="form-container p-4">
-                                            <form id="InformacionEquipo" >
+                                            <form id="InformacionEquipo">
                                                 <div class="row mb-3">
 
                                                     <div class="col-md-4 d-flex flex-column align-items-center">
@@ -227,14 +229,14 @@
                                                                 <input type="text" name="eqp_status" id="eqp_status" readonly class="form-control">
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div class="row mb-3">
                                                             <div class="col-md-6">
                                                                 <label for="eqp_ubicacion1" class="form-label">Ubicado en</label>
                                                                 <input type="text" name="eqp_ubicacion1" id="eqp_ubicacion1" readonly class="form-control">
                                                             </div>
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
 

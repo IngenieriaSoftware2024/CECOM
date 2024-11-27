@@ -25,6 +25,9 @@ const InputDestacamento = document.getElementById('eqp_ubicacion1');
 const InputStatus = document.getElementById('eqp_status');
 const FormularioInformacion = document.getElementById('InformacionEquipo');
 
+const SelectDestacamento = document.getElementById('ubi_id');
+const SelectDependencia = document.getElementById('asi_dependencia');
+
 const modalElement = document.querySelector('#modalEquipo');
 
 const Formulario = document.getElementById('FormularioBusqueda');
@@ -57,7 +60,6 @@ const Buscar = async (e) => {
 
         const respuesta = await fetch(url, config);
         const datos = await respuesta.json();
-
 
         const { codigo, mensaje, data } = datos;
 
@@ -191,6 +193,7 @@ const datatable = new DataTable('#EquiposEcontrados', {
                 <div class='d-flex justify-content-center'>
                   <button class='btn btn-warning informacion mx-1' 
                     data-equipoId="${data}"   
+                    data-equipoEstatus="${row.asi_status}"   
                     data-bs-toggle="modal" 
                     data-bs-target="#modalEquipo">
                     <i class="bi bi-eye-fill"></i> Información
@@ -215,10 +218,18 @@ const llenarDatos = async (e) => {
     });
 
     const idEquipo = e.currentTarget.dataset.equipoid;
+    const Status = e.currentTarget.dataset.equipoestatus;
 
     try {
-        const url = `/CECOM/API/informaciongeneral/buscar?equipo=${idEquipo}`;
-        const config = { method: 'GET' };
+        const body = new FormData();
+        body.append('idEquipo', idEquipo);
+        body.append('Status', Status);
+
+        const url = '/CECOM/API/informaciongeneral/buscar';
+        const config = { 
+            method: 'POST',
+            body
+        };
 
         const respuesta = await fetch(url, config);
         const datos = await respuesta.json();
@@ -234,11 +245,11 @@ const llenarDatos = async (e) => {
    
             if (Informacion) {
 
-                GradoOficial.value = Informacion.grado || "Sin información";
-                NombreOficial.value = Informacion.responsable || "Sin información";
+                GradoOficial.value = Informacion.grado || "";
+                NombreOficial.value = Informacion.responsable || "";
                 FotoOficial.innerHTML = Informacion.per_catalogo 
                     ? `<img src="https://sistema.ipm.org.gt/sistema/fotos_afiliados/ACTJUB/${Informacion.per_catalogo}.jpg" class="rounded-circle shadow" style="width: 125px; height: 125px;">`
-                    : "Sin foto disponible";
+                    : "";
                 InputClase.value = Informacion.clase || "Sin clase";
                 InputSerie.value = Informacion.serie || "Sin serie";
                 InputGama.value = Informacion.gama || "Sin gama";
@@ -356,6 +367,67 @@ modalElement.addEventListener('hidden.bs.modal', () => {
     InputDestacamento.value = '';
 });
 
+const mostrarDestacamentos = async () => {
+    const Dependencia = SelectDependencia.value.trim();
+
+    try {
+        const url = `/CECOM/API/reportes/buscarDestacamentos?dependencia=${Dependencia}`;
+        const config = { method: 'GET' };
+
+        const respuesta = await fetch(url, config);
+        const datos = await respuesta.json();
+
+        SelectDestacamento.innerHTML = '<option value="">SELECCIONE...</option>';
+
+        if (datos && datos.length > 0) {
+
+            datos.forEach(destacamento => {
+                const option = document.createElement('option');
+                option.value = destacamento.ubi_id;
+                option.textContent = destacamento.ubi_nombre;
+                SelectDestacamento.appendChild(option);
+            });
+        } else {
+
+            Swal.fire({
+                title: '¡Error!',
+                text: 'No se encontraron destacamentos para esta dependencia',
+                icon: 'warning',
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                background: '#e0f7fa',
+                customClass: {
+                    title: 'custom-title-class',
+                    text: 'custom-text-class'
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error al obtener los destacamentos:', error);
+
+        Swal.fire({
+            title: '¡Error!',
+            text: 'Error al obtener los destacamentos',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            background: '#e0f7fa',
+            customClass: {
+                title: 'custom-title-class',
+                text: 'custom-text-class'
+            }
+        });
+    }
+};
+
+// Añadir el evento para que la función se ejecute cuando el valor del select de dependencia cambie
+SelectDependencia.addEventListener('change', mostrarDestacamentos);
+
+
+
 datatable.on('click', '.informacion', llenarDatos);
+SelectDependencia.addEventListener('change', mostrarDestacamentos)
 
 Formulario.addEventListener('submit', Buscar);
