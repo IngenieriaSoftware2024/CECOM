@@ -53,10 +53,9 @@ class AsignacionDependencia extends ActiveRecord
                 FROM mdep
                 LEFT JOIN morg ON org_dependencia = dep_llave
                 LEFT JOIN mper ON per_plaza = org_plaza
-                WHERE (per_situacion IN ('11', 'TH', 'T0') OR dep_situacion = 1)
-                AND dep_situacion = 1
-                GROUP BY dep_llave, dep_desc_lg, dep_desc_md, dep_desc_ct, dep_clase, dep_precio, dep_ejto, dep_situacion
-                ORDER BY dep_situacion, dep_desc_md";
+                WHERE per_situacion IN ('11', 'TH', 'T0')
+                GROUP BY dep_llave, dep_desc_lg, dep_desc_md, dep_desc_ct, dep_clase, dep_precio, dep_ejto
+                ORDER BY dep_desc_md";
 
         return self::fetchArray($sql);
     }
