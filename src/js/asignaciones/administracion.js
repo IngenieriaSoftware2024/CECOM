@@ -96,7 +96,19 @@ const datatable = new DataTable('#EquiposRegistrados', {
         { title: 'No. Serie', data: 'serie' },
         { title: 'Responsable', data: 'responsable' },
         { title: 'Estatus', data: 'estatus' },
-        { title: 'Ubicado en', data: 'ubi_nombre' }
+        {
+            title: 'Ubicado en',
+            data: 'ubi_nombre',
+            render: (data, type, row) => {
+                if (row.estatus === "PENDIENTE DE RECIBIDO") {
+                    return "PENDIENTE DE RECIBO";
+                } else if (row.estatus === "MANTENIMIENTO") {
+                    return data; //SE AÑADE ESTO
+                } else {
+                    return data; 
+                }
+            }
+        }
     ]
 });
 

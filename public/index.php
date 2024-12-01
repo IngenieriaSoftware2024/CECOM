@@ -96,6 +96,10 @@ $router->get('/API/historial/buscar', [ReportesController::class, 'HistorialBusc
 $router->get('/API/reportes/buscarDestacamentos', [ReportesController::class, 'DestacamentosDependenciaAPI']);
 
 
+
+//URL A AYUDA
+$router->get('/ayuda', [InicioController::class, 'AyudaIndex']);
+
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
     

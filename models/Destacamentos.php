@@ -42,7 +42,7 @@ class Destacamentos extends ActiveRecord
 
     public static function DestacamentosDependencia($dep_llave)
     {
-        $sql = "SELECT UBI_ID, UBI_NOMBRE FROM CECOM_DEST_BRGS WHERE UBI_DEPENDENCIA  = '$dep_llave'";
+        $sql = "SELECT UBI_ID, UBI_NOMBRE FROM CECOM_DEST_BRGS WHERE UBI_DEPENDENCIA  = '$dep_llave' AND UBI_SITUACION = 1"; //VERIFICAR ESTO
 
         return self::fetchArray($sql);
     }
@@ -94,7 +94,7 @@ class Destacamentos extends ActiveRecord
                     CECOM_EQUIPO ON EQP_ID = ASI_EQUIPO
                 WHERE 
                     EQP_CLASE IN ($listadoIds) 
-                    AND ASI_SITUACION = 1";
+                    AND ASI_SITUACION = 1 AND UBI_SITUACION = 1"; //VERIFICAR ESTA CONSULTA
 
 
         if (isset($_SESSION['CECOM_USUARIO']) && !empty($_SESSION['dep_llave'])) {

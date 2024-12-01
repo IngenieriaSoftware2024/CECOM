@@ -18,6 +18,15 @@ const InputGama = document.getElementById('eqp_gama');
 const InputMarca = document.getElementById('eqp_marca');
 const InputEstado = document.getElementById('eqp_estado');
 
+InputClase.addEventListener('mousedown', (event) => {
+    event.preventDefault(); 
+});
+
+
+InputClase.style.pointerEvents = 'none';
+InputClase.style.backgroundColor = '#e9ecef'; 
+InputClase.style.color = '#6c757d'; 
+InputClase.style.cursor = 'not-allowed'; 
 
 const Buscar = async () => {
 
@@ -371,8 +380,10 @@ const llenarChechbox = async (e) => {
 
                     accesoriosDiv.appendChild(div);
                 });
+               
             } else {
                 accesoriosContainer.style.display = 'none';
+             
             }
         } catch (error) {
             console.error("Error obteniendo los accesorios:", error);
@@ -381,6 +392,7 @@ const llenarChechbox = async (e) => {
         accesoriosContainer.style.display = 'none';
     }
 };
+
 
 const VerificarSerie = async () => {
 

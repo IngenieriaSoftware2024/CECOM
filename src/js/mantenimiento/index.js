@@ -532,7 +532,7 @@ const Entregar = async (e) => {
         InputObs.disabled = false;
 
         const body = new FormData(Formulario);
-        const url = '/CECOM/API/mantenimiento/Entregar';
+        const url = '/CECOM/API/mantenimiento/Entregar'; 
 
         const config = {
             method: 'POST',

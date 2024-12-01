@@ -74,7 +74,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="/CECOM/reportes">
-                            <i class="bi bi-file-earmark-text-fill me-2"></i>Reportes
+                            <i class="bi bi-file-earmark-text-fill me-2"></i>Reportes e Información
                         </a>
                     </li>
 
@@ -82,10 +82,14 @@
 
 
                 <div class="d-flex align-items-center">
+                    <a href="/CECOM/ayuda" class="nav-link text-light me-3 d-flex align-items-center">
+                    <i class="bi bi-question-lg me-2"></i>Ayuda
+                    </a>
                     <a href="/menu/" class="btn btn-danger d-flex align-items-center">
                         <i class="bi bi-arrow-bar-left me-1"></i> MENÚ
                     </a>
                 </div>
+
             </div>
 
         </div>

@@ -104,7 +104,6 @@ class ReportesController
                 $sql .= " AND asi_dependencia = $dependencia";
             }
 
-
             $data = Equipo::fetchArray($sql);
 
 

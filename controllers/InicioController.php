@@ -18,4 +18,11 @@ class InicioController {
         ]);
     }
 
+    public static function AyudaIndex(Router $router){
+        
+        hasPermission(['CECOM_ADMINISTR', 'CECOM_USUARIO']);
+
+        $router->render('ayuda/ayuda', []);
+    }
+
 }

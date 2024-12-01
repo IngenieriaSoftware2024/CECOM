@@ -154,6 +154,7 @@ class ActiveRecord {
 
         // debuguear($query);
 
+
         $resultado = self::$db->exec($query);
         return [
             'resultado' =>  $resultado,

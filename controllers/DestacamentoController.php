@@ -50,7 +50,7 @@ class DestacamentoController
     {
 
         $_POST['ubi_dependencia'] = $_SESSION['dep_llave'];
-        $_POST['ubi_nombre'] = utf8_decode(htmlspecialchars(trim(mb_strtoupper($_POST['ubi_nombre'], 'UTF-8'))));
+        $_POST['ubi_nombre'] = htmlspecialchars(trim(mb_strtoupper(mb_convert_encoding($_POST['ubi_nombre'] ?? '', 'UTF-8'))));
         $_POST['ubi_latitud'] = filter_var($_POST['ubi_latitud'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $_POST['ubi_longitud'] = filter_var($_POST['ubi_longitud'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 
@@ -76,7 +76,7 @@ class DestacamentoController
     {
         $id = filter_var($_POST['ubi_id'], FILTER_SANITIZE_NUMBER_INT);
         $_POST['ubi_dependencia'] = $_SESSION['dep_llave'];
-        $_POST['ubi_nombre'] = utf8_decode(htmlspecialchars(trim(mb_strtoupper($_POST['ubi_nombre'], 'UTF-8'))));
+        $_POST['ubi_nombre'] = htmlspecialchars(trim(mb_strtoupper(mb_convert_encoding($_POST['ubi_nombre'] ?? '', 'UTF-8'))));
         $_POST['ubi_latitud'] = filter_var($_POST['ubi_latitud'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $_POST['ubi_longitud'] = filter_var($_POST['ubi_longitud'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 

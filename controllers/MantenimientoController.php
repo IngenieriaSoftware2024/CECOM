@@ -169,15 +169,6 @@ class MantenimientoController
     public static function EntregarAPI()
     {
 
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Método de solicitud no permitido'
-            ]);
-            http_response_code(405);
-            exit;
-        }
-
         $rep_id = filter_input(INPUT_POST, 'rep_id', FILTER_VALIDATE_INT);
         $asi_id = filter_input(INPUT_POST, 'asi_id', FILTER_VALIDATE_INT);
         $rep_equipo = filter_input(INPUT_POST, 'rep_equipo', FILTER_VALIDATE_INT);
@@ -228,10 +219,11 @@ class MantenimientoController
                 'asi_destacamento' => '',
                 'asi_fecha' => $fecha_actual,
                 'asi_responsable' => $datos_anteriores['asi_responsable'],
-                'asi_motivo' => "Devolucion de Equipo a su dependencia por motivo: Reparacion y/o Mantenimiento",
+                'asi_motivo' => "Devolucion de Equipo a su dependencia, motivo: Reparacion y/o Mantenimiento",
                 'asi_status' => 4,
                 'asi_situacion' => 1
             ]);
+
 
             $asignar = $asignacion->crear();
 
@@ -253,6 +245,7 @@ class MantenimientoController
                     'rep_status' => 10,
                     'rep_obs' => $rep_obs
                 ]);
+
                 $data->actualizar();
             }
 
