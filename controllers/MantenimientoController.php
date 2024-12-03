@@ -131,14 +131,14 @@ class MantenimientoController
 
             echo json_encode([
                 'codigo' => 1,
-                'mensaje' => 'Éxito Equipo Registrado Correctamente'
+                'mensaje' => 'Éxito Equipo Recibido Correctamente'
             ]);
         } catch (Exception $e) {
             $conexion->rollBack();
 
             http_response_code(500);
             echo json_encode([
-                'mensaje' => 'Error al registrar este equipo y accesorios',
+                'mensaje' => 'Error al recibir este equipo y accesorios',
                 'detalle' => $e->getMessage()
             ]);
         }

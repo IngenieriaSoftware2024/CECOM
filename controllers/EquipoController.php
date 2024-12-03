@@ -284,7 +284,7 @@ class EquipoController
 
             echo json_encode([
                 'codigo' => 1,
-                'mensaje' => 'Equipo y accesorios guardados con éxito.'
+                'mensaje' => 'Equipo y accesorios modificados correctamente.'
             ]);
         } catch (Exception $e) {
 
